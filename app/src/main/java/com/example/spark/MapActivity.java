@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -55,6 +57,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,7 +67,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class MapActivity extends FragmentActivity implements NavigationView.OnNavigationItemSelectedListener
         , OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener {
 
 
@@ -99,6 +102,7 @@ public class MapActivity extends AppCompatActivity implements NavigationView.OnN
     //ParkingSpot Variable
     private double radius;
     public Location location;
+    public Location currentLocation;
     private LatLng current;
     private LatLng dest;
 
@@ -124,40 +128,21 @@ public class MapActivity extends AppCompatActivity implements NavigationView.OnN
     private AutocompletePrediction prediction;
 
     //Listener
-    private AdapterView.OnItemClickListener adapterClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            hideKeyboard();
-            prediction = placeAutocompleteAdapter.getItem(position);
-            placeID = prediction.getPlaceId();
-            PendingResult<PlaceBuffer> placeBufferPendingResult = Places.GeoDataApi.getPlaceById(googleApiClient, placeID);
-            placeBufferPendingResult.setResultCallback(placeBufferResultCallback);
-        }
-    };
 
-    private ResultCallback<PlaceBuffer> placeBufferResultCallback = new ResultCallback<PlaceBuffer>() {
-        @Override
-        public void onResult(@NonNull PlaceBuffer places) {
-            if (!places.getStatus().isSuccess()) {
-                Log.d(TAG, "Didn't get the places" + places.getStatus().toString());
-                places.release();
-                return;
-            }
-            place = places.get(0);
-            moveCamera(place.getLatLng(), DEFAULT_ZOOM, place.getName().toString());
-            places.release();
-        }
-    };
     //Miscellaneous
     private final int ERROR_SERVICES = 9001;
 
     private final String TAG = getClass().getSimpleName();
+    public static final int REQUEST_CODE=101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
         googleApiClient = new GoogleApiClient.Builder(this).addApi(Places.GEO_DATA_API).addApi(LocationServices.API)
                 .addApi(Places.PLACE_DETECTION_API).build();
         locPermission = false;
@@ -165,6 +150,26 @@ public class MapActivity extends AppCompatActivity implements NavigationView.OnN
         setUpDisplay();
         locPriority = PRIORITY_BALANCED_POWER_ACCURACY;
         checkPermissions();
+    }
+
+    private void fetchLastLocation() {
+        if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+            return;
+        }
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            public void onSuccess(Location location) {
+                if(location != null){
+                    currentLocation = location;
+                    Toast.makeText(getApplicationContext(),currentLocation.getLatitude()
+                    +""+currentLocation.getLongitude(),Toast.LENGTH_SHORT).show();
+                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                    supportMapFragment.getMapAsync(MapActivity.this);
+                }
+            }
+        });
     }
 
     private void hideKeyboard() {
@@ -195,9 +200,7 @@ public class MapActivity extends AppCompatActivity implements NavigationView.OnN
         markerList = new ArrayList<>();
 
         toolbar = findViewById(R.id.map_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
@@ -243,7 +246,7 @@ public class MapActivity extends AppCompatActivity implements NavigationView.OnN
 
         AutocompleteFilter filter = new AutocompleteFilter.Builder().setTypeFilter(Place.TYPE_COUNTRY).setCountry("IN").build();
         placeAutocompleteAdapter = new PlaceAutocompleteAdapter(this, googleApiClient, LATLNG_BOUNDS, filter);
-        autoCompleteTextView.setOnItemClickListener(adapterClickListener);
+        //autoCompleteTextView.setOnItemClickListener(adapterClickListener);
         autoCompleteTextView.setAdapter(placeAutocompleteAdapter);
         autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -432,6 +435,12 @@ public class MapActivity extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        LatLng latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("i am here");
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,5));
+        googleMap.addMarker(markerOptions);
+
         if (mGoogleMap == null) {
             mGoogleMap = googleMap;
         }

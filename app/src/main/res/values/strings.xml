@@ -3,6 +3,7 @@
     <string name="s_park">S-PARK</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
+    <string name="google_api_key" translatable="false">AIzaSyCTL3bmwQi5ZZb_8Cnwb4EHc5g37K3l2w4</string>
     <string name="user_email">Email</string>
     <string name="user_password">Password</string>
     <string name="you_don_t_have_an_account">You don\'t have an account?</string>
