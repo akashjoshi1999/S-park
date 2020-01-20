@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">S park</string>
+    <string name="s_park">S-PARK</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="user_email">Email</string>
+    <string name="user_password">Password</string>
+    <string name="you_don_t_have_an_account">You don\'t have an account?</string>
+    <string name="sign_up">Sign Up?</string>
+    <string name="log_in">log in</string>
+</resources>
