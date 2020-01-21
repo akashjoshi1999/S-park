@@ -19,7 +19,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_api_key" />
+            android:value="AIzaSyCTL3bmwQi5ZZb_8Cnwb4EHc5g37K3l2w4" />
         <activity
             android:name=".MapActivity"
             android:launchMode="singleTop"
@@ -51,6 +51,15 @@
             android:name=".DetailsActivity"
             android:parentActivityName=".MapActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <service
+            android:name=".TrackerService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".LocationService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
