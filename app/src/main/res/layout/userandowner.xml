@@ -54,11 +54,11 @@
         android:id="@+id/button"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="319dp"
-        android:onClick="userSend"
         android:background="@drawable/user_start"
-        tools:ignore="MissingConstraints" />
+        android:onClick="userSend"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="399dp" />
 
     <Button
         android:id="@+id/button2"
@@ -68,5 +68,31 @@
         android:onClick="ownerSend"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="471dp" />
+        tools:layout_editor_absoluteY="555dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="238dp"
+        android:layout_height="53dp"
+        android:fontFamily="@font/alice"
+        android:text="@string/choose_the"
+        android:textAlignment="center"
+        android:textColor="#3049DB"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="272dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="128dp"
+        android:layout_height="49dp"
+        android:fontFamily="@font/alice"
+        android:text="@string/role"
+        android:textAlignment="center"
+        android:textColor="#3049DB"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="310dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

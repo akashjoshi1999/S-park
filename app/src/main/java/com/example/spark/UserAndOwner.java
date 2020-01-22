@@ -16,12 +16,12 @@ public class UserAndOwner extends Activity {
     }
 
     public void userSend(View view) {
-        Intent user_intent = new Intent(this,Login.class);
+        Intent user_intent = new Intent(this,MapActivity.class);
         startActivity(user_intent);
     }
 
     public void ownerSend(View view) {
-        Intent owner_intent = new Intent(this,Login.class);
+        Intent owner_intent = new Intent(this,MapActivity.class);
         startActivity(owner_intent);
     }
 }

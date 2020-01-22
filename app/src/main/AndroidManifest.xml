@@ -36,15 +36,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserAndOwner"
-            android:label="profile"
-            tools:ignore="DuplicateActivity"/>
+
         <activity
             android:name=".Login"
-            android:parentActivityName=".UserAndOwner" />
+            android:label="Log in"/>
         <activity
             android:name=".signUp"
             android:parentActivityName=".Login" />
+        <activity
+            android:name=".UserAndOwner"
+            android:parentActivityName=".Login"/>
         <activity
             android:name=".AccountActivity"
             android:label="Account"

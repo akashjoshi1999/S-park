@@ -60,7 +60,7 @@ public class Login extends AppCompatActivity {
                         builder.appendQueryParameter("data",firebaseAuth.getCurrentUser().getUid());
                         firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setPhotoUri(builder.build()).build());
                     }
-                    startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                    startActivity(new Intent(getApplicationContext(), UserAndOwner.class));
                 }
             }
         };
