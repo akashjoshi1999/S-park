@@ -20,6 +20,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCTL3bmwQi5ZZb_8Cnwb4EHc5g37K3l2w4" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
         <activity
             android:name=".MapActivity"
             android:launchMode="singleTop"
@@ -32,10 +36,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UserAndOwner"
+            android:label="profile"
+            tools:ignore="DuplicateActivity"/>
         <activity
             android:name=".Login"
-            android:label="Log In"
-            tools:ignore="DuplicateActivity" />
+            android:parentActivityName=".UserAndOwner" />
         <activity
             android:name=".signUp"
             android:parentActivityName=".Login" />
