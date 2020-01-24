@@ -39,7 +39,8 @@
 
         <activity
             android:name=".Login"
-            android:label="Log in"/>
+            android:label="Log in"
+            android:parentActivityName=".SplashActivity"/>
         <activity
             android:name=".signUp"
             android:parentActivityName=".Login" />

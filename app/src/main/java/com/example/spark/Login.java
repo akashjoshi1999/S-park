@@ -103,7 +103,7 @@ public class Login extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    Intent intent = new Intent(Login.this, MapActivity.class);
+                    Intent intent = new Intent(Login.this, UserAndOwner.class);
                     //Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
                     Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
                     startActivity(intent);

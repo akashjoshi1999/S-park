@@ -77,7 +77,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener {
                 if(task.isSuccessful()){
                     Toast.makeText(signUp.this,"User Registered",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    Intent intent = new Intent(signUp.this, MapActivity.class);
+                    Intent intent = new Intent(signUp.this, UserAndOwner.class);
                     startActivity(intent);
                 }
                 else{
