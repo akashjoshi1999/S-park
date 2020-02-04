@@ -3,12 +3,14 @@ package com.example.spark;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +21,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
@@ -49,23 +57,40 @@ public class Login extends AppCompatActivity {
         profileUpdates = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(builder.build())
                 .build();
+        final ArrayList<String>  DataList = new ArrayList<>();
+        final ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.login);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("AccountDetails");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                DataList.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    DataList.add(snapshot.getValue().toString());
+                }
+                adapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null) {
-                    if(firebaseAuth.getCurrentUser().getPhotoUrl()==null){
-                        uri = Uri.parse(URI);
-                        builder = uri.buildUpon();
-                        builder.appendQueryParameter("data",firebaseAuth.getCurrentUser().getUid());
-                        firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setPhotoUri(builder.build()).build());
-                    }
-                    startActivity(new Intent(getApplicationContext(), UserAndOwner.class));
+//                    if(firebaseAuth.getCurrentUser().getPhotoUrl()==null){
+//                        uri = Uri.parse(URI);
+//                        builder = uri.buildUpon();
+//                        builder.appendQueryParameter("data",firebaseAuth.getCurrentUser().getUid());
+//                        firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setPhotoUri(builder.build()).build());
+//                    }
+                    startActivity(new Intent(getApplicationContext(), MapActivity.class));
                 }
             }
         };
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();recreate();
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,9 +126,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    finish();
                     Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    Intent intent = new Intent(Login.this, UserAndOwner.class);
+                    Intent intent = new Intent(Login.this, MapActivity.class);
                     //Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
                     Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
                     startActivity(intent);

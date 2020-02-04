@@ -20,6 +20,19 @@
         tools:layout_editor_absoluteX="131dp"
         tools:layout_editor_absoluteY="55dp" />
 
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="105dp"
+        android:layout_height="43dp"
+        android:autofillHints="Select Role"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216"
+        tools:ignore="MissingConstraints" />
+
     <EditText
         android:id="@+id/editTextname"
         android:layout_width="wrap_content"
@@ -52,7 +65,8 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintVertical_bias="0.485"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/textPassword"
@@ -142,30 +156,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.91" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="181dp"
-        android:layout_height="46dp"
-        android:gravity="center"
-        android:textAlignment="inherit"
-        android:theme="@style/MySpinner"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="167dp" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/select_role"
-        android:textColor="#DD4E4E"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="133dp"
-        tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
