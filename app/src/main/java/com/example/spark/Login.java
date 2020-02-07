@@ -57,24 +57,7 @@ public class Login extends AppCompatActivity {
         profileUpdates = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(builder.build())
                 .build();
-        final ArrayList<String>  DataList = new ArrayList<>();
-        final ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.login);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("AccountDetails");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DataList.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    DataList.add(snapshot.getValue().toString());
-                }
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -90,7 +73,7 @@ public class Login extends AppCompatActivity {
             }
         };
 
-        firebaseAuth = FirebaseAuth.getInstance();recreate();
+        firebaseAuth = FirebaseAuth.getInstance();
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,12 +110,40 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     finish();
-                    Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                    Intent intent = new Intent(Login.this, MapActivity.class);
-                    //Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
-                    Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
-                    startActivity(intent);
+
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(task.getResult().getUser().getUid());
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                      @Override
+                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                       if (dataSnapshot.hasChild("account")){
+                        String account = dataSnapshot.child("account").getValue(String.class);
+                           Log.d("","account, user");
+                         if(account == "User"){
+                             Log.d("","account, user");
+                             Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
+                             progressDialog.dismiss();
+                             Intent intent = new Intent(Login.this, MapActivity.class);
+                             //Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
+                             Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+                             startActivity(intent);
+                         } else {
+                             Log.d("","account, owner");
+                            Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(Login.this, OwnerActivity.class);
+                            Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
+                            Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+                            startActivity(intent);
+                         }
+                       }
+                      }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
                 else{
                     Toast.makeText(Login.this,"User Not Authenticated...",Toast.LENGTH_SHORT).show();
