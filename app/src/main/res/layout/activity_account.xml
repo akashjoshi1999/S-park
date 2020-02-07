@@ -25,20 +25,22 @@
                 android:background="@drawable/gradient_red">
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/imageProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:layout_editor_absoluteX="140dp"
                     tools:layout_editor_absoluteY="8dp"
                     tools:srcCompat="@tools:sample/avatars[0]" />
 
-                <TextView
-                    android:id="@+id/text_nameview"
-                    android:layout_width="149dp"
-                    android:layout_height="28dp"
-                    android:text=""
-                    android:textAlignment="center"
-                    tools:layout_editor_absoluteX="130dp"
+                <Button
+                    android:id="@+id/selectImage"
+                    android:layout_width="81dp"
+                    android:layout_height="31dp"
+                    android:background="@drawable/gradient_red"
+                    android:text="@string/upload"
+                    android:textColor="#ffffff"
+                    android:onClick="uploadImage"
+                    tools:layout_editor_absoluteX="164dp"
                     tools:layout_editor_absoluteY="136dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
@@ -63,7 +65,7 @@
                 android:layout_height="30dp"
                 android:text="Personal"
                 android:textColor="#b3b3b3"
-                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="26dp" />
 
             <TextView
@@ -73,7 +75,7 @@
                 android:text=""
                 android:textAlignment="textEnd"
                 android:textColor="#ff3300"
-                tools:layout_editor_absoluteX="212dp"
+                tools:layout_editor_absoluteX="151dp"
                 tools:layout_editor_absoluteY="26dp" />
 
             <TextView
@@ -83,8 +85,8 @@
                 android:text=""
                 android:textAlignment="textEnd"
                 android:textColor="#ff3300"
-                tools:layout_editor_absoluteX="212dp"
-                tools:layout_editor_absoluteY="81dp" />
+                tools:layout_editor_absoluteX="151dp"
+                tools:layout_editor_absoluteY="79dp" />
 
             <TextView
                 android:id="@+id/text_userphone"
@@ -93,7 +95,7 @@
                 android:text=""
                 android:textAlignment="center"
                 android:textColor="#ff3300"
-                tools:layout_editor_absoluteX="212dp"
+                tools:layout_editor_absoluteX="151dp"
                 tools:layout_editor_absoluteY="133dp" />
 
             <TextView
@@ -102,7 +104,7 @@
                 android:layout_height="30dp"
                 android:text="Vehicles"
                 android:textColor="#b3b3b3"
-                tools:layout_editor_absoluteX="29dp"
+                tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="264dp" />
 
             <TextView
@@ -113,8 +115,8 @@
                 android:text="Add Vehicle"
                 android:textAlignment="textEnd"
                 android:textColor="#ff3300"
-                tools:layout_editor_absoluteX="212dp"
-                tools:layout_editor_absoluteY="265dp" />
+                tools:layout_editor_absoluteX="198dp"
+                tools:layout_editor_absoluteY="264dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar3"
@@ -132,19 +134,49 @@
                 android:layout_height="30dp"
                 android:text="Other"
                 android:textColor="#b3b3b3"
-                tools:layout_editor_absoluteX="29dp"
-                tools:layout_editor_absoluteY="395dp" />
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="394dp" />
 
             <TextView
                 android:id="@+id/text_userDeactivate"
                 android:layout_width="195dp"
                 android:layout_height="29dp"
                 android:onClick="accountDeactivate"
-                android:text="Add Vehicle"
+                android:text="Deactivate"
                 android:textAlignment="textEnd"
                 android:textColor="#ff3300"
-                tools:layout_editor_absoluteX="212dp"
-                tools:layout_editor_absoluteY="265dp" />
+                tools:layout_editor_absoluteX="198dp"
+                tools:layout_editor_absoluteY="395dp" />
+
+            <Button
+                android:id="@+id/buttonName"
+                android:layout_width="54dp"
+                android:layout_height="35dp"
+                android:text="@string/button_name"
+                android:background="@drawable/gradient_red"
+                tools:layout_editor_absoluteX="353dp"
+                android:textColor="#ffffff"
+                tools:layout_editor_absoluteY="21dp" />
+
+            <Button
+                android:id="@+id/buttoneEmail"
+                android:layout_width="54dp"
+                android:layout_height="35dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/gradient_red"
+                android:text="@string/button_email"
+                tools:layout_editor_absoluteX="353dp"
+                tools:layout_editor_absoluteY="71dp" />
+
+            <Button
+                android:id="@+id/buttonPhone"
+                android:layout_width="54dp"
+                android:layout_height="35dp"
+                android:textColor="#ffffff"
+                android:text="@string/buttonPjone"
+                android:background="@drawable/gradient_red"
+                tools:layout_editor_absoluteX="353dp"
+                tools:layout_editor_absoluteY="124dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

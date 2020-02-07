@@ -17,6 +17,10 @@
     <string name="select_role">Select Role</string>
     <string name="add_parking_slot">Add Parking Slot</string>
     <string name="parking_spot">Parking Spot</string>
+    <string name="button_name">EDIT</string>
+    <string name="button_email">EDIT</string>
+    <string name="buttonPjone">EDIT</string>
+    <string name="upload">UPLOAD</string>
 
     <string-array name="role">
         <item>User</item>
