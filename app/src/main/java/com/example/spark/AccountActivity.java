@@ -47,25 +47,6 @@ public class AccountActivity extends AppCompatActivity {
         phoneButton = (Button) findViewById(R.id.buttonPhone);
         uploadImage = (Button) findViewById(R.id.selectImage);
 
-        nameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        emailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        phoneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
     }
 
     public void addVehicle(View view) {
@@ -109,5 +90,21 @@ public class AccountActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void nameEdit(View view) {
+        Intent intent = new Intent(AccountActivity.this,nameEditAcivity.class);
+        startActivity(intent);
+
+    }
+
+    public void emailEdit(View view) {
+        Intent intent = new Intent(AccountActivity.this,emailEditActivity.class);
+        startActivity(intent);
+    }
+
+    public void phoneEdit(View view) {
+        Intent intent = new Intent(AccountActivity.this,phoneEditAvtivity.class);
+        startActivity(intent);
     }
 }

@@ -153,6 +153,7 @@
                 android:layout_width="54dp"
                 android:layout_height="35dp"
                 android:text="@string/button_name"
+                android:onClick="nameEdit"
                 android:background="@drawable/gradient_red"
                 tools:layout_editor_absoluteX="353dp"
                 android:textColor="#ffffff"
@@ -163,6 +164,7 @@
                 android:layout_width="54dp"
                 android:layout_height="35dp"
                 android:textColor="#ffffff"
+                android:onClick="emailEdit"
                 android:background="@drawable/gradient_red"
                 android:text="@string/button_email"
                 tools:layout_editor_absoluteX="353dp"
@@ -174,6 +176,7 @@
                 android:layout_height="35dp"
                 android:textColor="#ffffff"
                 android:text="@string/buttonPjone"
+                android:onClick="phoneEdit"
                 android:background="@drawable/gradient_red"
                 tools:layout_editor_absoluteX="353dp"
                 tools:layout_editor_absoluteY="124dp" />
