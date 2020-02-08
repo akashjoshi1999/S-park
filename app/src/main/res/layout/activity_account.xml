@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:layout_editor_absoluteX="140dp"
-                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteY="1dp"
                     tools:srcCompat="@tools:sample/avatars[0]" />
 
                 <Button
@@ -38,11 +38,11 @@
                     android:layout_width="81dp"
                     android:layout_height="31dp"
                     android:background="@drawable/gradient_red"
+                    android:onClick="uploadImage"
                     android:text="@string/upload"
                     android:textColor="#ffffff"
-                    android:onClick="uploadImage"
                     tools:layout_editor_absoluteX="164dp"
-                    tools:layout_editor_absoluteY="136dp" />
+                    tools:layout_editor_absoluteY="129dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
@@ -56,9 +56,9 @@
                 android:layout_width="414dp"
                 android:layout_height="44dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.568"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="189dp" />
+                tools:layout_editor_absoluteY="232dp" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -106,7 +106,7 @@
                 android:text="Vehicles"
                 android:textColor="#b3b3b3"
                 tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="264dp" />
+                tools:layout_editor_absoluteY="302dp" />
 
             <TextView
                 android:id="@+id/text_uservehicle"
@@ -116,8 +116,8 @@
                 android:text="Add Vehicle"
                 android:textAlignment="textEnd"
                 android:textColor="#ff3300"
-                tools:layout_editor_absoluteX="198dp"
-                tools:layout_editor_absoluteY="264dp" />
+                tools:layout_editor_absoluteX="188dp"
+                tools:layout_editor_absoluteY="303dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar3"
@@ -125,9 +125,9 @@
                 android:layout_width="405dp"
                 android:layout_height="37dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.568"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="328dp" />
+                tools:layout_editor_absoluteY="362dp" />
 
             <TextView
                 android:id="@+id/textView20"
@@ -136,51 +136,39 @@
                 android:text="Other"
                 android:textColor="#b3b3b3"
                 tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="394dp" />
+                tools:layout_editor_absoluteY="423dp" />
+
+            <TextView
+                android:id="@+id/text_userChangePassword"
+                android:layout_width="195dp"
+                android:layout_height="29dp"
+                android:onClick="accountDeactivate"
+                android:text="@string/set_new_password"
+                android:textAlignment="textEnd"
+                android:textColor="#ff3300"
+                tools:layout_editor_absoluteX="188dp"
+                tools:layout_editor_absoluteY="415dp" />
 
             <TextView
                 android:id="@+id/text_userDeactivate"
                 android:layout_width="195dp"
                 android:layout_height="29dp"
                 android:onClick="accountDeactivate"
-                android:text="Deactivate"
+                android:text="@string/deactivate"
                 android:textAlignment="textEnd"
                 android:textColor="#ff3300"
-                tools:layout_editor_absoluteX="198dp"
-                tools:layout_editor_absoluteY="395dp" />
+                tools:layout_editor_absoluteX="188dp"
+                tools:layout_editor_absoluteY="474dp" />
 
             <Button
-                android:id="@+id/buttonName"
-                android:layout_width="54dp"
-                android:layout_height="35dp"
-                android:text="@string/button_name"
-                android:onClick="nameEdit"
+                android:id="@+id/buttonUpdate"
+                android:layout_width="74dp"
+                android:layout_height="28dp"
                 android:background="@drawable/gradient_red"
-                tools:layout_editor_absoluteX="353dp"
+                android:text="@string/update"
                 android:textColor="#ffffff"
-                tools:layout_editor_absoluteY="21dp" />
-
-            <Button
-                android:id="@+id/buttoneEmail"
-                android:layout_width="54dp"
-                android:layout_height="35dp"
-                android:textColor="#ffffff"
-                android:onClick="emailEdit"
-                android:background="@drawable/gradient_red"
-                android:text="@string/button_email"
-                tools:layout_editor_absoluteX="353dp"
-                tools:layout_editor_absoluteY="71dp" />
-
-            <Button
-                android:id="@+id/buttonPhone"
-                android:layout_width="54dp"
-                android:layout_height="35dp"
-                android:textColor="#ffffff"
-                android:text="@string/buttonPjone"
-                android:onClick="phoneEdit"
-                android:background="@drawable/gradient_red"
-                tools:layout_editor_absoluteX="353dp"
-                tools:layout_editor_absoluteY="124dp" />
+                tools:layout_editor_absoluteX="218dp"
+                tools:layout_editor_absoluteY="175dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,6 +21,14 @@
     <string name="button_email">EDIT</string>
     <string name="buttonPjone">EDIT</string>
     <string name="upload">UPLOAD</string>
+    <string name="update">UPDATE</string>
+    <string name="set_new_password">Set New Password</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="password_change">Password Change</string>
+    <string name="update">UPDATE</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
 
     <string-array name="role">
         <item>User</item>

@@ -15,9 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".phoneEditAvtivity"></activity>
-        <activity android:name=".emailEditActivity" />
-        <activity android:name=".nameEditAcivity" />
+        <activity android:name=".ActivityUserChangePassword"></activity>
         <activity android:name=".Vehicle" />
         <activity
             android:name=".AccountActivity"

@@ -1,5 +1,6 @@
 package com.example.spark;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +17,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.auth.viewmodel.RequestCodes;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -26,11 +31,13 @@ import java.util.HashMap;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private TextView user_name,user_email,userphone;
+    private TextView user_name,user_email,userphone,changePassword;
     private ImageView userImage;
-    private Button nameButton,emailButton,phoneButton,uploadImage;
+    private Button dataChange,uploadImage;
     private static final int Imageback = 1;
     private StorageReference Folder;
+    FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +49,48 @@ public class AccountActivity extends AppCompatActivity {
         user_email = (TextView)findViewById(R.id.text_useremail);
         userphone = (TextView) findViewById(R.id.text_userphone);
         userImage = (ImageView) findViewById(R.id.imageProfile);
-        nameButton = (Button) findViewById(R.id.buttonName);
-        emailButton = (Button) findViewById(R.id.buttoneEmail);
-        phoneButton = (Button) findViewById(R.id.buttonPhone);
+        dataChange = (Button) findViewById(R.id.buttonUpdate);
         uploadImage = (Button) findViewById(R.id.selectImage);
+        changePassword = (TextView)(findViewById(R.id.text_userChangePassword));
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        final DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+                user_name.setText(userProfile.getUserName());
+                user_email.setText(userProfile.getUserEmail());
+                userphone.setText(userProfile.getUserPhone());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(AccountActivity.this,databaseError.getCode(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dataChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = user_name.getText().toString();
+                String email= user_email.getText().toString();
+                String phone = userphone.getText().toString();
+
+                UserProfile userProfile = new UserProfile(name, email, phone);
+                databaseReference.setValue(userProfile);
+            }
+        });
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountActivity.this,ActivityUserChangePassword.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -92,19 +137,4 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    public void nameEdit(View view) {
-        Intent intent = new Intent(AccountActivity.this,nameEditAcivity.class);
-        startActivity(intent);
-
-    }
-
-    public void emailEdit(View view) {
-        Intent intent = new Intent(AccountActivity.this,emailEditActivity.class);
-        startActivity(intent);
-    }
-
-    public void phoneEdit(View view) {
-        Intent intent = new Intent(AccountActivity.this,phoneEditAvtivity.class);
-        startActivity(intent);
-    }
 }
