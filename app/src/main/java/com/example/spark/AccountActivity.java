@@ -2,8 +2,12 @@ package com.example.spark;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,8 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.viewmodel.RequestCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,13 +38,14 @@ import java.util.HashMap;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private TextView user_name,user_email,userphone,changePassword;
+    private TextView user_name,user_email,userphone,changePassword,userDeactivate;
     private ImageView userImage;
     private Button dataChange,uploadImage;
     private static final int Imageback = 1;
     private StorageReference Folder;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +60,11 @@ public class AccountActivity extends AppCompatActivity {
         dataChange = (Button) findViewById(R.id.buttonUpdate);
         uploadImage = (Button) findViewById(R.id.selectImage);
         changePassword = (TextView)(findViewById(R.id.text_userChangePassword));
+        userDeactivate = (TextView)findViewById(R.id.text_userDeactivate);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         final DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
 
@@ -70,6 +80,42 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(AccountActivity.this,databaseError.getCode(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        userDeactivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(AccountActivity.this);
+                dialog.setTitle("Are you sure?");
+                dialog.setMessage("Deleting this account will results in completely removing your account from the system and you won't be able to access the app.");
+                dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(AccountActivity.this,"Account deleted",Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(AccountActivity.this,Login.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }else {
+                                    Toast.makeText(AccountActivity.this, (CharSequence) task.getException(),Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    }
+                });
+                dialog.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
             }
         });
 
@@ -99,8 +145,7 @@ public class AccountActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void accountDeactivate(View view) {
-    }
+
 
     public void uploadImage(View view) {
         Intent intent = new Intent();

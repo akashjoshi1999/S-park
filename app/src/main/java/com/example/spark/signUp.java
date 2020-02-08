@@ -80,7 +80,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
         final String email = editTextEmail.getText().toString().trim();
         final String name = editTextname.getText().toString().trim();
         final String Acccount_Detail = text;
-        String password = editTextPassword.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)) {
             editTextname.setError("Name required");
@@ -108,7 +108,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                     if (task.isSuccessful()) {
                         finish();
                         firebaseAccountDetails fad = new firebaseAccountDetails(
-                                Acccount_Detail, name, email
+                                Acccount_Detail, name, email,password
                         );
                         FirebaseDatabase.getInstance().getReference("AccountDetails")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -136,7 +136,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                     if (task.isSuccessful()) {
                         finish();
                         firebaseAccountDetails fad = new firebaseAccountDetails(
-                                Acccount_Detail, name, email
+                                Acccount_Detail, name, email,password
                         );
                         FirebaseDatabase.getInstance().getReference("AccountDetails")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
