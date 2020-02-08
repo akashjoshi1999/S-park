@@ -29,6 +29,10 @@
     <string name="current_password">Current Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
+    <string name="vehicle_details">Vehicle Details</string>
+    <string name="number_plate">Number plate</string>
+    <string name="model">Model</string>
+    <string name="submit">Submit</string>
 
     <string-array name="role">
         <item>User</item>
