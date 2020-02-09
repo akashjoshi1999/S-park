@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,8 @@ import java.util.HashMap;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private TextView user_name,user_email,userphone,changePassword,userDeactivate;
+    private EditText user_name,user_email,userphone;
+    private TextView changePassword,userDeactivate;
     private ImageView userImage;
     private Button dataChange,uploadImage;
     private static final int Imageback = 1;
@@ -53,9 +55,9 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         Folder = FirebaseStorage.getInstance().getReference().child("ImageFolder");
 
-        user_name = (TextView) findViewById(R.id.text_username);
-        user_email = (TextView)findViewById(R.id.text_useremail);
-        userphone = (TextView) findViewById(R.id.text_userphone);
+        user_name = (EditText) findViewById(R.id.text_username);
+        user_email = (EditText) findViewById(R.id.text_useremail);
+        userphone = (EditText) findViewById(R.id.text_userphone);
         userImage = (ImageView) findViewById(R.id.imageProfile);
         dataChange = (Button) findViewById(R.id.buttonUpdate);
         uploadImage = (Button) findViewById(R.id.selectImage);
