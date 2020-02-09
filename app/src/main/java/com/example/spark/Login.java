@@ -34,10 +34,10 @@ import java.util.Objects;
 public class Login extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
-    private EditText Email,forgotPassword;
+    private EditText Email;
     private EditText Password;
     private ImageView Login;
-    private TextView RegisterUser;
+    private TextView RegisterUser,forgotPassword;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -45,7 +45,6 @@ public class Login extends AppCompatActivity {
     private Uri uri;
     private Uri.Builder builder;
     private final String URI = "https://api.qrserver.com/v1/create-qr-code/?size=150x150";
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

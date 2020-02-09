@@ -406,10 +406,6 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                 finish();
                 break;
-            case R.id.nav_settings:
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-
-                break;
             case R.id.nav_logout:
                 auth = FirebaseAuth.getInstance();
                 if (auth.getCurrentUser() != null) {
