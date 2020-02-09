@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ import java.util.HashMap;
 
 public class Vehicle extends AppCompatActivity {
 
-    private TextView userCarNumber,userCarModel;
+    private EditText userCarNumber,userCarModel;
     private Button submitVehicleDetails;
     private ImageView carImage;
     private static final int Imageback = 1;
@@ -46,8 +47,8 @@ public class Vehicle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
 
-        userCarNumber = (TextView) findViewById(R.id.textNumberPlate);
-        userCarModel = (TextView) findViewById(R.id.textModel);
+        userCarNumber = (EditText) findViewById(R.id.textNumberPlate);
+        userCarModel = (EditText) findViewById(R.id.textModel);
         submitVehicleDetails = (Button) findViewById(R.id.buttonCarDetails);
         carImage = (ImageView) findViewById(R.id.imageViewCar);
 

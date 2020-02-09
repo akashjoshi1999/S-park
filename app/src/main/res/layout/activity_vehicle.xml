@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.081" />
 
-    <TextView
+    <EditText
         android:id="@+id/textNumberPlate"
         android:layout_width="152dp"
         android:layout_height="0dp"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewCar"
         tools:ignore="MissingConstraints" />
 
-    <TextView
+    <EditText
         android:id="@+id/textModel"
         android:layout_width="152dp"
         android:layout_height="0dp"

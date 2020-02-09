@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
     private TextView RegisterUser,forgotPassword;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
+    //private FirebaseAuth.AuthStateListener authStateListener;
     private UserProfileChangeRequest profileUpdates;
     private Uri uri;
     private Uri.Builder builder;
@@ -60,20 +60,20 @@ public class Login extends AppCompatActivity {
                 .setPhotoUri(builder.build())
                 .build();
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser()!=null) {
-//                    if(firebaseAuth.getCurrentUser().getPhotoUrl()==null){
-//                        uri = Uri.parse(URI);
-//                        builder = uri.buildUpon();
-//                        builder.appendQueryParameter("data",firebaseAuth.getCurrentUser().getUid());
-//                        firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setPhotoUri(builder.build()).build());
-//                    }
-                    startActivity(new Intent(getApplicationContext(), MapActivity.class));
-                }
-            }
-        };
+//        authStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if(firebaseAuth.getCurrentUser()!=null) {
+////                    if(firebaseAuth.getCurrentUser().getPhotoUrl()==null){
+////                        uri = Uri.parse(URI);
+////                        builder = uri.buildUpon();
+////                        builder.appendQueryParameter("data",firebaseAuth.getCurrentUser().getUid());
+////                        firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setPhotoUri(builder.build()).build());
+////                    }
+//                    startActivity(new Intent(getApplicationContext(), OwnerActivity.class));
+//                }
+//            }
+//        };
 
         firebaseAuth = FirebaseAuth.getInstance();
         Login.setOnClickListener(new View.OnClickListener() {
@@ -166,8 +166,6 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
-
     }
 
 }

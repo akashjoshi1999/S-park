@@ -45,14 +45,14 @@ public class ActivityUserChangePassword extends AppCompatActivity {
             currentPass.setError("Current password is required");
             return;
         }
-        if(TextUtils.isEmpty(newPassword)){
-            newPass.setError("New password is required");
-            return;
-        }
-        if(TextUtils.isEmpty(confirmNewPassword)){
-            confirmNewPass.setError("New confirm password is required");
-            return;
-        }
+//        if(TextUtils.isEmpty(newPassword)){
+//            newPass.setError("New password is required");
+//            return;
+//        }
+//        if(TextUtils.isEmpty(confirmNewPassword)){
+//            confirmNewPass.setError("New confirm password is required");
+//            return;
+//        }
 
         firebaseUser.updatePassword(currentPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

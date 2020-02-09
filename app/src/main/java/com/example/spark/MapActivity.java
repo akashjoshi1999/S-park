@@ -437,6 +437,9 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,5));
         googleMap.addMarker(markerOptions);
 
+        LatLng bvm = new LatLng(22.552613,72.923816);
+        googleMap.addMarker(new MarkerOptions().position(bvm));
+
         if (mGoogleMap == null) {
             mGoogleMap = googleMap;
         }
@@ -464,16 +467,16 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     @Override
     protected void onPause() {
         super.onPause();
-//        if (marker != null) {
-//            dest = new LatLng(marker.getPosition().latitude,marker.getPosition().longitude);
-//            ParkingSpot abc = new ParkingSpot("Random");
+        if (marker != null) {
+            dest = new LatLng(marker.getPosition().latitude,marker.getPosition().longitude);
+//            //ParkingSpot abc = new ParkingSpot("Random");
 //            abc.setLongitude(dest.longitude);
-//            abc.setLatitude(dest.latitude);
+//            abc.setLatitiude(dest.latitude);
 //            Intent intent = new Intent(this, TrackerService.class);
 //            intent.putExtra("loc", abc);
 //            startService(intent);
 //            marker=null;
-//        }
+        }
 
     }
 }
