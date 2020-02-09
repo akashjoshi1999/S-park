@@ -1,5 +1,6 @@
 package com.example.spark;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -33,7 +34,7 @@ import java.util.Objects;
 public class Login extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
-    private EditText Email;
+    private EditText Email,forgotPassword;
     private EditText Password;
     private ImageView Login;
     private TextView RegisterUser;
@@ -44,6 +45,7 @@ public class Login extends AppCompatActivity {
     private Uri uri;
     private Uri.Builder builder;
     private final String URI = "https://api.qrserver.com/v1/create-qr-code/?size=150x150";
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.editText2);
         RegisterUser = findViewById(R.id.textView2);
         Login = findViewById(R.id.imageView4);
+        forgotPassword = findViewById(R.id.textForgotPassword);
         builder = new Uri.Builder();
         profileUpdates = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(builder.build())
@@ -85,6 +88,14 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),signUp.class));
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this,ActivityForgotPassword.class);
+                startActivity(intent);
             }
         });
     }
@@ -159,4 +170,5 @@ public class Login extends AppCompatActivity {
         firebaseAuth.addAuthStateListener(authStateListener);
 
     }
+
 }

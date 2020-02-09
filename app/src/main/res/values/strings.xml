@@ -25,7 +25,6 @@
     <string name="set_new_password">Set New Password</string>
     <string name="deactivate">Deactivate</string>
     <string name="password_change">Password Change</string>
-    <string name="update">UPDATE</string>
     <string name="current_password">Current Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
@@ -33,7 +32,9 @@
     <string name="number_plate">Number plate</string>
     <string name="model">Model</string>
     <string name="submit">Submit</string>
-
+    <string name="forgot_password">Forgot password</string>
+    <string name="enter_email">Enter email</string>
+    <string name="your_password_is_send_to_your_email_account">Your password is send to your email account.</string>
     <string-array name="role">
         <item>User</item>
         <item>Owner</item>

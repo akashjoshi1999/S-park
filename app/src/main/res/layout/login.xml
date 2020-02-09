@@ -142,4 +142,19 @@
         tools:layout_editor_absoluteY="141dp"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/textForgotPassword"
+        android:layout_width="159dp"
+        android:layout_height="24dp"
+        android:text="@string/forgot_password"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
