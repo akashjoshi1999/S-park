@@ -67,13 +67,9 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                 .position(bvm)
                 .title("")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Intent intent = new Intent(MapActivity.this,VehicleBooking.class);
-            }
-        });
+        mMap.setOnMarkerClickListener(this);
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -103,6 +99,5 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     public boolean onMarkerClick(Marker marker) {
         return false;
     }
-
 
 }
