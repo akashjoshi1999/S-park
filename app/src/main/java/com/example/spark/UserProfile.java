@@ -1,41 +1,41 @@
 package com.example.spark;
 
 public class UserProfile {
-    public String userName;
-    public String userEmail;
-    public String userPhone;
+    public String Name;
+    public String email;
+    public String phone;
 
     public UserProfile(){
 
     }
 
-    public UserProfile(String userName, String userEmail, String userPhone) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
+    public UserProfile(String Name, String email, String phone) {
+        this.Name = Name;
+        this.email = email;
+        this.phone = phone;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.Name = name;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return Name;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getPhone() {
+        return phone;
     }
 }

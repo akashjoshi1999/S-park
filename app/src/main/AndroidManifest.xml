@@ -15,12 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityForgotPassword"
-            android:label="Forgot Password"/>
-        <activity android:name=".ActivityUserChangePassword"
-            android:label="Change Password"/>
-        <activity android:name=".Vehicle"
-            android:label="Vehicle Details"/>
+        <activity android:name=".VehicleBooking"></activity>
+        <activity
+            android:name=".ActivityForgotPassword"
+            android:label="Forgot Password" />
+        <activity
+            android:name=".ActivityUserChangePassword"
+            android:label="Change Password" />
+        <activity
+            android:name=".Vehicle"
+            android:label="Vehicle Details" />
         <activity
             android:name=".AccountActivity"
             android:label="Account"
@@ -60,7 +64,6 @@
         <activity
             android:name=".OwnerActivity"
             android:parentActivityName=".signUp" />
-
         <activity
             android:name=".DetailsActivity"
             android:parentActivityName=".MapActivity"
