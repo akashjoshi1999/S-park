@@ -101,7 +101,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
 
         progressDialog.setMessage("Registering User ...");
         progressDialog.show();
-        if (Acccount_Detail == "User") {
+        if (Acccount_Detail.equals("User")) {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

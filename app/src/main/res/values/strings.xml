@@ -36,6 +36,7 @@
     <string name="your_password_is_send_to_your_email_account">Your password is send to your email account.</string>
     <string name="forgot_password">Forgot password</string>
     <string name="loading">Loading</string>
+    <string name="password">password</string>
     <string-array name="role">
         <item>User</item>
         <item>Owner</item>
