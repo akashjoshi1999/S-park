@@ -37,6 +37,8 @@
     <string name="forgot_password">Forgot password</string>
     <string name="loading">Loading</string>
     <string name="password">password</string>
+    <string name="direction">Direction</string>
+    <string name="booking">Booking</string>
     <string-array name="role">
         <item>User</item>
         <item>Owner</item>
