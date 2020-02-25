@@ -32,12 +32,12 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("AccountDetails")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("Car standing");
+                .child("car_standing");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                carPark = dataSnapshot.child("Car standing").getValue().toString();
+                carPark = dataSnapshot.child("car_standing").getValue(String.class);
                 car.setText(carPark);
             }
 

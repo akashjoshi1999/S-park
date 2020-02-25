@@ -3,8 +3,10 @@ package com.example.spark;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,7 +35,10 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     private GoogleMap mMap;
     private FirebaseAuth auth;
     public LatLng bvm;
+    private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
+    private Marker Mymarker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,27 +52,33 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        DatabaseReference databaseReference = firebaseDatabase.getReference("AccountDetails").child(Objects.requireNonNull(auth.getUid()));
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Double Lat = dataSnapshot.child("lat").getValue(Double.class);
-                Double Lng = dataSnapshot.child("long").getValue(Double.class);
-                bvm = new LatLng(Lat,Lng);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bvm, 8.5f));
-        mMap.addMarker(new MarkerOptions()
-                .position(bvm)
-                .title("")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         mMap.setOnMarkerClickListener(this);
+        FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        boolean x = dataSnapshot.hasChildren();
+//                        x = dataSnapshot.hasChild("lat");
+                        double Lat = Double.parseDouble(dataSnapshot.child("lat").getValue(String.class));
+                        double Lng = Double.parseDouble(dataSnapshot.child("long").getValue(String.class));
+                        bvm = new LatLng(Lat, Lng);
+
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bvm, 8.5f));
+                        Mymarker = mMap.addMarker(new MarkerOptions()
+                                .position(bvm)
+                                .title("")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
     }
 
 
@@ -97,7 +108,10 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        if (marker.equals(Mymarker)) {
+            Intent intent = new Intent(MapActivity.this, VehicleBooking.class);
+            startActivity(intent);
+        }
         return false;
     }
-
 }

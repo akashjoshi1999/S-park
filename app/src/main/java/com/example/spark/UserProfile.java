@@ -1,7 +1,7 @@
 package com.example.spark;
 
 public class UserProfile {
-    public String Name;
+    public String name;
     public String email;
     public String phone;
 
@@ -10,13 +10,13 @@ public class UserProfile {
     }
 
     public UserProfile(String Name, String email, String phone) {
-        this.Name = Name;
+        this.name = Name;
         this.email = email;
         this.phone = phone;
     }
 
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
 
     public void setEmail(String email) {
@@ -28,7 +28,7 @@ public class UserProfile {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getEmail() {

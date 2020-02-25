@@ -62,15 +62,34 @@ public class Login extends AppCompatActivity {
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null) {
+                    FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild("account")){
+                                String account = dataSnapshot.child("account").getValue(String.class);
+                                if(account == "User"){
+                                    startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                                }
+                                else {
+                                    startActivity(new Intent(getApplicationContext(), OwnerActivity.class));
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 //                    if(firebaseAuth.getCurrentUser().getPhotoUrl()==null){
 //                        uri = Uri.parse(URI);
 //                        builder = uri.buildUpon();
 //                        builder.appendQueryParameter("data",firebaseAuth.getCurrentUser().getUid());
 //                        firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setPhotoUri(builder.build()).build());
 //                    }
-                    startActivity(new Intent(getApplicationContext(), MapActivity.class));
+
                 }
             }
         };
@@ -119,28 +138,30 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    finish();
 
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(task.getResult().getUser().getUid());
-                    databaseReference.addValueEventListener(new ValueEventListener() {
+
+                    FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                            addValueEventListener(new ValueEventListener() {
                       @Override
                      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        if (dataSnapshot.hasChild("account")){
                         String account = dataSnapshot.child("account").getValue(String.class);
-                           Log.d("","account, user");
+                           //Log.d("","account, user");
                          if(account == "User"){
-                             Log.d("","account, user");
+                             //Log.d("","account, user");
                              Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
                              progressDialog.dismiss();
                              Intent intent = new Intent(Login.this, MapActivity.class);
+                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                              //Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
                              Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
                              startActivity(intent);
                          } else {
-                             Log.d("","account, owner");
+                             //Log.d("","account, owner");
                             Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                             Intent intent = new Intent(Login.this, OwnerActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
                             Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
                             startActivity(intent);
