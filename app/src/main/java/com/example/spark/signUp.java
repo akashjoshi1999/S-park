@@ -106,7 +106,6 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        finish();
                         firebaseAccountDetails fad = new firebaseAccountDetails(
                                 Acccount_Detail, name, email,password
                         );
