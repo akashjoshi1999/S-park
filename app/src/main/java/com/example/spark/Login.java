@@ -147,7 +147,7 @@ public class Login extends AppCompatActivity {
                        if (dataSnapshot.hasChild("account")){
                         String account = dataSnapshot.child("account").getValue(String.class);
                            //Log.d("","account, user");
-                         if(account == "User"){
+                         if(account.equals("User")){
                              //Log.d("","account, user");
                              Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
                              progressDialog.dismiss();

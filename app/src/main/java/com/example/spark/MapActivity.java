@@ -54,14 +54,14 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
-        FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+        FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").
                 addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                        boolean x = dataSnapshot.hasChildren();
 //                        x = dataSnapshot.hasChild("lat");
-                        double Lat = Double.parseDouble(dataSnapshot.child("lat").getValue(String.class));
-                        double Lng = Double.parseDouble(dataSnapshot.child("long").getValue(String.class));
+                        double Lat = dataSnapshot.child("lat").getValue(Double.class);
+                        double Lng = dataSnapshot.child("long").getValue(Double.class);
                         bvm = new LatLng(Lat, Lng);
 
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bvm, 8.5f));
