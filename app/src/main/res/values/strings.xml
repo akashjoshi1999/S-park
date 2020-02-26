@@ -39,6 +39,7 @@
     <string name="password">password</string>
     <string name="direction">Direction</string>
     <string name="booking">Booking</string>
+    <string name="book">BOOK</string>
     <string-array name="role">
         <item>User</item>
         <item>Owner</item>
