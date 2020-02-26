@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.hasChild("account")){
                                 String account = dataSnapshot.child("account").getValue(String.class);
-                                if(account == "User"){
+                                if(account.equals("User")){
                                     startActivity(new Intent(getApplicationContext(), MapActivity.class));
                                 }
                                 else {

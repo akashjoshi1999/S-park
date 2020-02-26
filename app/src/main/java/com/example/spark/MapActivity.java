@@ -60,8 +60,8 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                        boolean x = dataSnapshot.hasChildren();
 //                        x = dataSnapshot.hasChild("lat");
-                        double Lat = dataSnapshot.child("lat").getValue(Double.class);
-                        double Lng = dataSnapshot.child("long").getValue(Double.class);
+                        double Lat = Double.parseDouble(dataSnapshot.child("lat").getValue(String.class));
+                        double Lng = Double.parseDouble(dataSnapshot.child("long").getValue(String.class));
                         bvm = new LatLng(Lat, Lng);
 
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bvm, 8.5f));
