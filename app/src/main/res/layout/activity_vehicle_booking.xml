@@ -5,21 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VehicleBooking">
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/viewFlipper"
+        android:flipInterval="2000"
+        android:autoStart="true"
+        tools:ignore="MissingConstraints">
 
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/image2"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/image3"/>
+    </ViewFlipper>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/img1"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/img2"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/img3"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:id="@+id/textDirection"
         android:layout_width="187dp"
         android:layout_height="58dp"
         android:text="@string/direction"
         android:textAlignment="center"
-        android:textColor="#BB1919"
+        android:textColor="#ffffff"
+        android:background="#BB1919"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintVertical_bias="0.575" />
 
     <TextView
         android:id="@+id/textBooking"
@@ -28,12 +71,13 @@
         android:text="@string/booking"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="#BB1919"
+        android:textColor="#ffffff"
+        android:background="#BB1919"
         android:textIsSelectable="true"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.618" />
+        app:layout_constraintVertical_bias="0.725" />
 </androidx.constraintlayout.widget.ConstraintLayout>
