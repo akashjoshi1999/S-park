@@ -19,25 +19,29 @@ import java.util.List;
 
 public class carBooking extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<BookTheVehicle> bookTheVehicles;
+    public List<BookTheVehicle> bookTheVehicleslist;
     private DatabaseReference databaseReference;
+    private MyBookAdapter myBookAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_booking);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("AccountDetails");
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        bookTheVehicles = new ArrayList<BookTheVehicle>();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        bookTheVehicleslist = new ArrayList<BookTheVehicle>();
+        FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3")
+        .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-
+                    BookTheVehicle bookTheVehicle = dataSnapshot1.getValue(BookTheVehicle.class);
+                    bookTheVehicleslist.add(bookTheVehicle);
                 }
+                myBookAdapter = new MyBookAdapter(carBooking.this,bookTheVehicleslist);
+                recyclerView.setAdapter(myBookAdapter);
             }
 
             @Override

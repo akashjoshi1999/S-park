@@ -32,6 +32,9 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BookTheVehicle bookTheVehicle = bookTheVehicles.get(position);
         holder.textViewBookSpot.setText(bookTheVehicle.getSpotBook());
+        if(bookTheVehicles.get(position).getCar_booking().equals("Yes")){
+            holder.textViewButtonBookSpot.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
