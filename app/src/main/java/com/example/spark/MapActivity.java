@@ -26,6 +26,7 @@ import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
@@ -38,10 +39,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,7 +90,12 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
 
-        if(ContextCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED){
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
             finish();
             return;
         } else {
@@ -100,6 +109,11 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mapView = mapFragment.getView();
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MapActivity.this);
+        Places.initialize(MapActivity.this,"AIzaSyCTL3bmwQi5ZZb_8Cnwb4EHc5g37K3l2w4");
+        placesClient = Places.createClient(this);
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
     }
 
     private void getLocationPermission() {
@@ -143,19 +157,49 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 51){
             if(resultCode == RESULT_OK){
-                getDivicelocation();
+                getDevicelocation();
             }
         }
     }
 
-    private void getDivicelocation() {
+    private void getDevicelocation() {
+        mFusedLocationProviderClient.getLastLocation()
+                .addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if(task.isSuccessful()) {
+                            mLastKnownLocation = task.getResult();
+                            if(mLastKnownLocation != null){
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude()),DEFAULT_ZOOM));
+                            } else {
+                                LocationRequest locationRequest = LocationRequest.create();
+                                locationRequest.setInterval(100000);
+                                locationRequest.setFastestInterval(5000);
+                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                                locationCallback = new LocationCallback() {
+                                    @Override
+                                    public void onLocationResult(LocationResult locationResult) {
+                                        super.onLocationResult(locationResult);
+                                        if(locationResult == null) {
+                                            return;
+                                        }
+                                        mLastKnownLocation = locationResult.getLastLocation();
+                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude()),DEFAULT_ZOOM));
+                                        mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                                    }
+                                };
+                                mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+                            }
+                        } else {
+                            Toast.makeText(MapActivity.this,"Unable to get last location",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
         if(mapView != null && mapView.findViewById(Integer.parseInt("1")) != null){
             View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
@@ -178,7 +222,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         task.addOnSuccessListener(MapActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-
+                getDevicelocation();
             }
         });
 

@@ -43,18 +43,7 @@
         android:background="@drawable/round_white_background"
         android:elevation="5dp"
         android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/details"
-        android:layout_alignParentRight="true"
-        android:layout_above="@id/reset"
-        android:layout_width="wrap_content"
-        android:layout_marginRight="15dp"
-        android:padding="6dp"
-        android:alpha="0.65"
-        android:src="@drawable/ic_car_icon"
-        android:background="@drawable/round_white_background"
-        android:elevation="5dp"
-        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:padding="12dp"
