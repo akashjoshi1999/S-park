@@ -40,8 +40,8 @@ public class carBooking extends AppCompatActivity {
                     BookTheVehicle bookTheVehicle = dataSnapshot1.getValue(BookTheVehicle.class);
                     bookTheVehicleslist.add(bookTheVehicle);
                 }
-                myBookAdapter = new MyBookAdapter(carBooking.this,bookTheVehicleslist);
-                recyclerView.setAdapter(myBookAdapter);
+//                myBookAdapter = new MyBookAdapter(carBooking.this,bookTheVehicleslist);
+//                recyclerView.setAdapter(myBookAdapter);
             }
 
             @Override

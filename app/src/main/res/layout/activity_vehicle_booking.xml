@@ -10,7 +10,6 @@
         android:layout_height="200dp"
         android:layout_marginTop="20dp"
         android:id="@+id/viewFlipper"
-        android:flipInterval="2000"
         android:autoStart="true"
         tools:ignore="MissingConstraints">
 
@@ -20,16 +19,6 @@
             android:layout_height="200dp"
             android:scaleType="centerCrop" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:id="@+id/image2"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:id="@+id/image3"/>
     </ViewFlipper>
     <TextView
         android:layout_width="0dp"

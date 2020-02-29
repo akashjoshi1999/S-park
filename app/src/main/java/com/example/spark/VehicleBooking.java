@@ -22,8 +22,10 @@ import com.squareup.picasso.Picasso;
 public class VehicleBooking extends AppCompatActivity {
 
     private TextView textDirection,textBoooking;
-    private ImageView imageView1,imageView2,imageView3;
-    private TextView textViewimg1,TextViewimg2,TextViewimg3;
+    private ImageView imageView1;
+    //imageView2,imageView3;
+    private TextView textViewimg1;
+    //TextViewimg2,TextViewimg3;
     private DatabaseReference databaseReference;
     private FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
     @Override
@@ -34,12 +36,12 @@ public class VehicleBooking extends AppCompatActivity {
         textDirection = (TextView)findViewById(R.id.textDirection);
         textBoooking = (TextView)findViewById(R.id.textBooking);
         imageView1 = (ImageView) findViewById(R.id.image1);
-        imageView2 = (ImageView) findViewById(R.id.image2);
-        imageView3 = (ImageView) findViewById(R.id.image3);
+//        imageView2 = (ImageView) findViewById(R.id.image2);
+//        imageView3 = (ImageView) findViewById(R.id.image3);
 
         textViewimg1 = (TextView) findViewById(R.id.img1);
-        TextViewimg2 = (TextView) findViewById(R.id.img2);
-        TextViewimg3 = (TextView) findViewById(R.id.img3);
+//        TextViewimg2 = (TextView) findViewById(R.id.img2);
+//        TextViewimg3 = (TextView) findViewById(R.id.img3);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 
@@ -52,7 +54,7 @@ public class VehicleBooking extends AppCompatActivity {
         textBoooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),carBooking.class));
+                //startActivity(new Intent(getApplicationContext(),carBooking.class));
             }
         });
     }
@@ -66,11 +68,11 @@ public class VehicleBooking extends AppCompatActivity {
                 String imageURL1 = dataSnapshot.child("image").child("image1").getValue().toString();
                 Picasso.get().load(imageURL1).into(imageView1);
 
-                String imageURL2 = dataSnapshot.child("image").child("image2").getValue().toString();
-                Picasso.get().load(imageURL2).into(imageView1);
-
-                String imageURL3 = dataSnapshot.child("image").child("image3").getValue().toString();
-                Picasso.get().load(imageURL3).into(imageView1);
+//                String imageURL2 = dataSnapshot.child("image").child("image2").getValue().toString();
+//                Picasso.get().load(imageURL2).into(imageView1);
+//
+//                String imageURL3 = dataSnapshot.child("image").child("image3").getValue().toString();
+//                Picasso.get().load(imageURL3).into(imageView1);
             }
 
             @Override
