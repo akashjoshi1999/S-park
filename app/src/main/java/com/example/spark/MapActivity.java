@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,6 +63,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -105,6 +108,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        searchView = (SearchView) findViewById(R.id.search_auto);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -114,6 +118,31 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         Places.initialize(MapActivity.this,"AIzaSyCTL3bmwQi5ZZb_8Cnwb4EHc5g37K3l2w4");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                String location = searchView.getQuery().toString();
+                List<Address> addressList = null;
+
+                if(addressList != null || !location .equals("")) {
+                    Geocoder geocoder = new Geocoder(MapActivity.this);
+                    try {
+                        addressList = geocoder.getFromLocationName(location,1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Address address = addressList.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(),address.getLongitude());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     private void getLocationPermission() {
