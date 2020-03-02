@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".carBooking"></activity>
+        <activity android:name=".PlaceDirectionMap"></activity>
+        <activity android:name=".carBooking" />
         <activity android:name=".VehicleBooking" />
         <activity
             android:name=".ActivityForgotPassword"
