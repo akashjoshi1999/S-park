@@ -38,35 +38,21 @@
         android:id="@+id/img3"
         android:visibility="invisible"
         tools:ignore="MissingConstraints" />
-    <TextView
-        android:id="@+id/textDirection"
-        android:layout_width="187dp"
-        android:layout_height="58dp"
-        android:text="@string/direction"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:background="#BB1919"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
 
     <TextView
         android:id="@+id/textBooking"
         android:layout_width="187dp"
         android:layout_height="58dp"
+        android:background="#BB1919"
         android:text="@string/booking"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:background="#BB1919"
         android:textIsSelectable="true"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.725" />
+        app:layout_constraintVertical_bias="0.618" />
 </androidx.constraintlayout.widget.ConstraintLayout>

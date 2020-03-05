@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 public class VehicleBooking extends AppCompatActivity {
 
-    private TextView textDirection,textBoooking;
+    private TextView textBoooking;
     private ImageView imageView1;
     //imageView2,imageView3;
     private TextView textViewimg1;
@@ -33,7 +33,6 @@ public class VehicleBooking extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_booking);
 
-        textDirection = (TextView)findViewById(R.id.textDirection);
         textBoooking = (TextView)findViewById(R.id.textBooking);
         imageView1 = (ImageView) findViewById(R.id.image1);
 //        imageView2 = (ImageView) findViewById(R.id.image2);
@@ -45,12 +44,7 @@ public class VehicleBooking extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 
-        textDirection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),PlaceDirectionMap.class));
-            }
-        });
+
         textBoooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
