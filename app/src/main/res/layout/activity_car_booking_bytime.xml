@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".carBookingBytime">
+
+
+    <TextView
+        android:id="@+id/textViewSetEndDate"
+        android:layout_width="53dp"
+        android:layout_height="38dp"
+        android:text="Set"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="270dp"
+        tools:layout_editor_absoluteY="500dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewSetStartDate"
+        android:layout_width="53dp"
+        android:layout_height="38dp"
+        android:text="Set"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="500dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewSetEndTime"
+        android:layout_width="53dp"
+        android:layout_height="38dp"
+        android:text="Set"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="270dp"
+        tools:layout_editor_absoluteY="288dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewSetStartTime"
+        android:layout_width="53dp"
+        android:layout_height="38dp"
+        android:text="Set"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="288dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="End Date"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="235dp"
+        tools:layout_editor_absoluteY="396dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="140dp"
+        android:layout_height="52dp"
+        android:text="Start Date"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="396dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="End Time"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="235dp"
+        tools:layout_editor_absoluteY="180dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BOOK THE SPOT"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.101" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="140dp"
+        android:layout_height="52dp"
+        android:text="Start Time"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="180dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewFinalBook"
+        android:layout_width="192dp"
+        android:layout_height="61dp"
+        android:text="BOOK"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="605dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="199dp"
+        android:layout_height="27dp"
+        android:text="5 Minute = 20 Rupees"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="553dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,7 +53,7 @@ public class carBooking extends AppCompatActivity {
                             holder.textViewChangeSpot.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    //startActivity(new Intent(getApplicationContext(),carBooking.class));
+                                    startActivity(new Intent(getApplicationContext(),carBookingBytime.class));
                                 }
                             });
                         }
