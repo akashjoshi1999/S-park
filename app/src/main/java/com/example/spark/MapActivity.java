@@ -279,7 +279,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
 //                        boolean x = dataSnapshot.hasChildren();
 //                        x = dataSnapshot.hasChild("lat");
                         double Lat = Double.parseDouble(dataSnapshot.child("lat").getValue(String.class));
-                        double Lng = Double.parseDouble(dataSnapshot.child("long").getValue(String.class));
+                        double Lng = Double.parseDouble(dataSnapshot.child("lng").getValue(String.class));
                         bvm = new LatLng(Lat, Lng);
 
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bvm, 8.5f));

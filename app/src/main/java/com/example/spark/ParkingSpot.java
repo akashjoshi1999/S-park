@@ -1,34 +1,69 @@
 package com.example.spark;
 
-import java.io.Serializable;
-import java.util.HashMap;
+public class ParkingSpot{
+    private String account,car_standing,city,cost,distance,email,name,place_name;
+    private Double lat, lng;
 
-/**
- * Created by LUCIFER on 22-03-2018.
- */
-
-public class ParkingSpot implements Serializable {
-
-    private int pincode;
-    private String name;
-    private long sensorCount;
-    private HashMap<Integer, Sensor> sensor;
-    private double latitiude;
-    private double longitude;
-    private double cost;
-    private String address;
-
-    public ParkingSpot() {
-        sensor = new HashMap<>();
-        cost = 1;
+    public ParkingSpot(String account, String car_standing, String city, String cost, String distance, String email, String name, String place_name, Double lat ,
+                       Double lng) {
+        this.account = account;
+        this.car_standing = car_standing;
+        this.city = city;
+        this.cost = cost;
+        this.distance = distance;
+        this.email = email;
+        this.name = name;
+        this.place_name = place_name;
+        this.lat = lat;
+        this.lng = lng;
     }
 
-    public int getPincode() {
-        return pincode;
+    public String getAccount() {
+        return account;
     }
 
-    public void setPincode(int pincode) {
-        this.pincode = pincode;
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getCar_standing() {
+        return car_standing;
+    }
+
+    public void setCar_standing(String car_standing) {
+        this.car_standing = car_standing;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -39,49 +74,26 @@ public class ParkingSpot implements Serializable {
         this.name = name;
     }
 
-    public long getSensorCount() {
-        return sensorCount;
+    public String getPlace_name() {
+        return place_name;
     }
 
-    public void setSensorCount(long sensorCount) {
-        this.sensorCount = sensorCount;
+    public void setPlace_name(String place_name) {
+        this.place_name = place_name;
     }
 
-    public HashMap<Integer, Sensor> getSensor() {
-        return sensor;
+    public Double getLat() {
+        return lat;
     }
 
-    public void setSensor(HashMap<Integer, Sensor> sensor) { this.sensor = sensor; }
-
-    public double getLatitiude() {
-        return latitiude;
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+    public Double getLng() {
+        return lng;
     }
 
-    public void setLatitiude(double latitiude) {
-        this.latitiude = latitiude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 }

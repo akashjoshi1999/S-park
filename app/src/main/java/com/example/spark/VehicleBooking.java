@@ -48,7 +48,7 @@ public class VehicleBooking extends AppCompatActivity {
         textBoooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(),carBooking.class));
+                startActivity(new Intent(getApplicationContext(),carBooking.class));
             }
         });
     }
