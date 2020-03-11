@@ -18,7 +18,7 @@ public class carBookingBytime extends AppCompatActivity {
     private TextView textViewStartTime,textViewEndTime,TextViewStartDate,TextViewEndDate,textViewFinalBook;
     DatePickerDialog.OnDateSetListener setListener;
     TimePickerDialog.OnTimeSetListener onTimeSetListener;
-    public String date,date1;
+    public String date,date2;
     String AmPm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +111,7 @@ public class carBookingBytime extends AppCompatActivity {
         textViewFinalBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String totaldate = date1
+
             }
         });
 
