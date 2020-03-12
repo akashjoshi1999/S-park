@@ -120,6 +120,7 @@
         android:textAlignment="center"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="553dp" />
+        tools:layout_editor_absoluteY="553dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
