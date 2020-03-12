@@ -56,6 +56,10 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                 finish();
                 break;
+            case R.id.nav_history:
+                startActivity(new Intent(getApplicationContext(), HistoryOwnerActivity.class));
+                finish();
+                break;
             case R.id.nav_logout:
                 firebaseAuth = FirebaseAuth.getInstance();
                 if (firebaseAuth.getCurrentUser() != null) {
