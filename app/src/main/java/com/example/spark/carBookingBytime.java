@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.service.chooser.ChooserTarget;
 import android.view.View;
@@ -137,6 +138,11 @@ public class carBookingBytime extends AppCompatActivity {
                     String bookHourDiff = crunchifyFormatter.format(diffhours);
                     int diffmin = (int) (diff / (60 * 1000));
                     String bookMinuteDiff = crunchifyFormatter.format(diffmin);
+                    Intent intent = new Intent(this, PaymentActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Amount",((diffhours * 60) + diffmin)*20);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
 
                 } catch (Exception e) {
                     e.printStackTrace();
