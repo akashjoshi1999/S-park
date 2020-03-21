@@ -59,16 +59,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login"
-            android:label="Log In"
-            android:parentActivityName=".SplashActivity" />
+            android:name=".Login" />
         <activity
             android:name=".signUp"
             android:label="Sign UP"
             android:parentActivityName=".Login" />
         <activity
-            android:name=".OwnerActivity"
-            android:parentActivityName=".signUp" />
+            android:name=".OwnerActivity"/>
         <activity
             android:name=".DetailsActivity"
             android:parentActivityName=".MapActivity"
