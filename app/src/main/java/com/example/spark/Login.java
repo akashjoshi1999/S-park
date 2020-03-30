@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //set up notitle
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         //set up full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);

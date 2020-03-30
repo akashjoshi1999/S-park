@@ -19,6 +19,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class VehicleBooking extends AppCompatActivity {
 
     private TextView textBoooking;
@@ -32,6 +34,7 @@ public class VehicleBooking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_booking);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         textBoooking = (TextView)findViewById(R.id.textBooking);
         imageView1 = (ImageView) findViewById(R.id.image1);

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -79,6 +80,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     private PlacesClient placesClient;
     private List<AutocompletePrediction> predictionList;
     private Location mLastKnownLocation;
+    private Location location;
     private LocationCallback locationCallback;
     private View mapView;
     private SearchView searchView;
@@ -89,16 +91,19 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
     private Marker Mymarker;
+    private ImageView imageViewReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //set up notitle
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //set up full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.map_activity);
+
 
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED &&
@@ -112,10 +117,28 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
             getLocationPermission();
         }
 
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(100000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                if(locationResult == null) {
+                    return;
+                }
+                mLastKnownLocation = locationResult.getLastLocation();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude()),DEFAULT_ZOOM));
+                mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+            }
+        };
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         searchView = (SearchView) findViewById(R.id.search_auto);
+        imageViewReset = findViewById(R.id.reset);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -150,7 +173,18 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                 return false;
             }
         });
+
+        imageViewReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(location == null){
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),DEFAULT_ZOOM));
+                }
+            }
+        });
     }
+
 
     private void getLocationPermission() {
         Dexter.withActivity(MapActivity.this)
@@ -193,45 +227,45 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 51){
             if(resultCode == RESULT_OK){
-                getDevicelocation();
+                //getDevicelocation();
             }
         }
     }
 
-    private void getDevicelocation() {
-        mFusedLocationProviderClient.getLastLocation()
-                .addOnCompleteListener(new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if(task.isSuccessful()) {
-                            mLastKnownLocation = task.getResult();
-                            if(mLastKnownLocation != null){
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude()),DEFAULT_ZOOM));
-                            } else {
-                                LocationRequest locationRequest = LocationRequest.create();
-                                locationRequest.setInterval(100000);
-                                locationRequest.setFastestInterval(5000);
-                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                                locationCallback = new LocationCallback() {
-                                    @Override
-                                    public void onLocationResult(LocationResult locationResult) {
-                                        super.onLocationResult(locationResult);
-                                        if(locationResult == null) {
-                                            return;
-                                        }
-                                        mLastKnownLocation = locationResult.getLastLocation();
-                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude()),DEFAULT_ZOOM));
-                                        mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
-                                    }
-                                };
-                                mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
-                            }
-                        } else {
-                            Toast.makeText(MapActivity.this,"Unable to get last location",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
+//    private void getDevicelocation() {
+//        mFusedLocationProviderClient.getLastLocation()
+//                .addOnCompleteListener(new OnCompleteListener<Location>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Location> task) {
+//                        if(task.isSuccessful()) {
+//                            mLastKnownLocation = task.getResult();
+//                            if(mLastKnownLocation != null){
+//                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude()),DEFAULT_ZOOM));
+//                            } else {
+//                                LocationRequest locationRequest = LocationRequest.create();
+//                                locationRequest.setInterval(100000);
+//                                locationRequest.setFastestInterval(5000);
+//                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//                                locationCallback = new LocationCallback() {
+//                                    @Override
+//                                    public void onLocationResult(LocationResult locationResult) {
+//                                        super.onLocationResult(locationResult);
+//                                        if(locationResult == null) {
+//                                            return;
+//                                        }
+//                                        mLastKnownLocation = locationResult.getLastLocation();
+//                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(),mLastKnownLocation.getLongitude()),DEFAULT_ZOOM));
+//                                        mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+//                                    }
+//                                };
+//                                mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+//                            }
+//                        } else {
+//                            Toast.makeText(MapActivity.this,"Unable to get last location",Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+//    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -258,7 +292,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         task.addOnSuccessListener(MapActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
             @Override
             public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                getDevicelocation();
+                //getDevicelocation();
             }
         });
 

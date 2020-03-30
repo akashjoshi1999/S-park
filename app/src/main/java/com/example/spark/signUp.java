@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class signUp extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -44,6 +45,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
