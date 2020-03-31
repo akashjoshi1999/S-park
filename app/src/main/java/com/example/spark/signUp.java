@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -47,6 +48,9 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
         setContentView(R.layout.signup);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        //set up full screen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
         buttonRegister =  findViewById(R.id.buttonRegister);

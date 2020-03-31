@@ -11,14 +11,19 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="148dp"
-        android:layout_height="58dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="21dp"
         android:text="@string/s_park"
         android:textAlignment="center"
         android:textColor="#F44336"
         android:textSize="36sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="131dp"
-        tools:layout_editor_absoluteY="55dp" />
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -27,10 +32,9 @@
         android:autofillHints="Select Role"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.216"
+        app:layout_constraintVertical_bias="0.258"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -41,6 +45,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/user_name"
+        android:textColorHint="#ffffff"
         android:inputType="textEmailAddress|textPersonName"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,8 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/user_email"
+        android:textColorHint="#ffffff"
         android:inputType="textEmailAddress|textPersonName"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -65,16 +72,16 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.485"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="0.485" />
 
     <EditText
         android:id="@+id/textPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword"
         android:hint="@string/user_password"
+        android:textColorHint="#ffffff"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +156,7 @@
         android:text="@string/log_in"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#ffffff"
+        android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,4 +165,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.91" />
 
+    <TextView
+        android:id="@+id/editText3"
+        android:layout_width="179dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="552dp"
+        android:ems="10"
+        android:text="@string/select_role"
+        android:textAlignment="center"
+        android:textColor="#DD4E4E"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="157dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="598dp"
+        android:text="SIGN UP"
+        android:textAlignment="center"
+        android:textColor="#FD3A3A"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
