@@ -30,6 +30,7 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
         GOOGLE_PAY_REQUEST_CODE = 123;
