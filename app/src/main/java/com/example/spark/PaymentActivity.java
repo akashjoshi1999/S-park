@@ -64,6 +64,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PayUsingUPI( OwnerName,PaymentGooglePayID,PaymentName,Amount);
+
             }
 
             private void PayUsingUPI(String name, String upid, String note, String amount) {

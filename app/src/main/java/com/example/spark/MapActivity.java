@@ -177,8 +177,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         imageViewReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(location == null){
+                if (location != null) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),DEFAULT_ZOOM));
                 }
             }
