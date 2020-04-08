@@ -1,13 +1,14 @@
 package com.example.spark;
 
-public class PaymentUser {
+public class PaymentOwner {
     public String name;
     public String UpiID;
     public int amount;
 
-    public PaymentUser(){
+    public PaymentOwner(){
 
     }
+
     public String getName() {
         return name;
     }
@@ -32,7 +33,7 @@ public class PaymentUser {
         this.amount = amount;
     }
 
-    public PaymentUser(String name, String upiID, int amount) {
+    public PaymentOwner(String name, String upiID, int amount) {
         this.name = name;
         this.UpiID = upiID;
         this.amount = amount;
