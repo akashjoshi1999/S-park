@@ -348,6 +348,10 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                 startActivity(new Intent(getApplicationContext(), AccountActivity.class));
                 finish();
                 break;
+            case R.id.googlePay:
+                startActivity(new Intent(getApplicationContext(),AddGooglePayActivity.class));
+                finish();
+                break;
             case R.id.nav_history:
                 startActivity(new Intent(getApplicationContext(), HistoryUserActivity.class));
                 finish();

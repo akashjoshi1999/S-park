@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".AddGooglePayActivity"></activity>
+        <activity android:name=".PaymentActivity" />
         <activity android:name=".HistoryOwnerActivity" />
         <activity android:name=".HistoryUserActivity" />
         <activity android:name=".carBookingBytime" />
@@ -58,14 +59,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Login" />
+        <activity android:name=".Login" />
         <activity
             android:name=".signUp"
             android:label="Sign UP"
             android:parentActivityName=".Login" />
-        <activity
-            android:name=".OwnerActivity"/>
+        <activity android:name=".OwnerActivity" />
         <activity
             android:name=".DetailsActivity"
             android:parentActivityName=".MapActivity"
