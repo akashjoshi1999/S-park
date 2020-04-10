@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 public class AddGooglePayActivity extends AppCompatActivity {
 
     public TextView textViewButtonID;
@@ -24,6 +28,8 @@ public class AddGooglePayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_google_pay);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
 
         editTextAddID = findViewById(R.id.editTextAddGoogleID);
         textViewButtonID = findViewById(R.id.textViewButtonAddGoogleID);
@@ -56,6 +62,7 @@ public class AddGooglePayActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(AddGooglePayActivity.this,"ID Stored",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), MapActivity.class));
                 }
             }
         });
