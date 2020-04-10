@@ -73,9 +73,9 @@ public class PaymentActivity extends AppCompatActivity {
         final DatabaseReference databaseReference1 = (DatabaseReference) firebaseDatabase.getReference().child("AccountDetails").child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-                UserName = userProfile.getName();
-                userUPIID = userProfile.getUpiId();
+                PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
+                UserName = paymentProfile.getuName();
+                userUPIID = paymentProfile.getUpiId();
             }
 
             @Override
@@ -97,7 +97,7 @@ public class PaymentActivity extends AppCompatActivity {
                         UserName,userUPIID,Amount
                 );
                 FirebaseDatabase.getInstance().getReference("AccountDetails")
-                        .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3")
+                        .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history")
                         .setValue(userPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -107,7 +107,7 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 });
                 FirebaseDatabase.getInstance().getReference("AccountDetails")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
                         .setValue(ownerPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
