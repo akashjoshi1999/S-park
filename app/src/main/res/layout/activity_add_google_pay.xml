@@ -7,4 +7,28 @@
     android:background="@drawable/googlepay"
     tools:context=".AddGooglePayActivity">
 
+    <EditText
+        android:id="@+id/editTextAddGoogleID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter GoogleID"
+        android:textAlignment="center"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="59dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewButtonAddGoogleID"
+        android:layout_width="122dp"
+        android:layout_height="38dp"
+        android:background="#2196F3"
+        android:text="Add"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="123dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
