@@ -85,7 +85,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
     private void registerUser() {
         final String email = editTextEmail.getText().toString().trim();
         final String name = editTextname.getText().toString().trim();
-        final String Acccount_Detail = text;
+        final String Account_Detail = text;
         final String password = editTextPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)) {
@@ -104,16 +104,16 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
             editTextPassword.setError("Enter valid password");
             return;
         }
-
+        Toast.makeText(signUp.this, "error connection", Toast.LENGTH_SHORT).show();
         progressDialog.setMessage("Registering User ...");
         progressDialog.show();
-        if (Acccount_Detail.equals("User")) {
+        if (Account_Detail.equals("User")) {
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         firebaseAccountDetails fad = new firebaseAccountDetails(
-                                Acccount_Detail, name, email,password
+                                Account_Detail, name, email,password
                         );
                         FirebaseDatabase.getInstance().getReference("AccountDetails")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -141,7 +141,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                     if (task.isSuccessful()) {
                         finish();
                         firebaseAccountDetails fad = new firebaseAccountDetails(
-                                Acccount_Detail, name, email,password
+                                Account_Detail, name, email,password
                         );
                         FirebaseDatabase.getInstance().getReference("AccountDetails")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
