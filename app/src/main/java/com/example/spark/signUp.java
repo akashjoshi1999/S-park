@@ -104,7 +104,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
             editTextPassword.setError("Enter valid password");
             return;
         }
-        Toast.makeText(signUp.this, "error connection", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(signUp.this, "error connection", Toast.LENGTH_SHORT).show();
         progressDialog.setMessage("Registering User ...");
         progressDialog.show();
         if (Account_Detail.equals("User")) {
