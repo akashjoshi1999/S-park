@@ -1,11 +1,12 @@
 package com.example.spark;
 
 public class ParkingSpot{
-    private String account, carStanding,city,cost,distance,email,name, placeName;
+    private String account, carStanding,city,cost,distance,email,name, placeName, phone;
+    private int time;
     private Double lat, lng;
 
     public ParkingSpot(String account, String carStanding, String city, String cost, String distance, String email, String name, String placeName, Double lat ,
-                       Double lng) {
+                       Double lng,String phone, int time) {
         this.account = account;
         this.carStanding = carStanding;
         this.city = city;
@@ -16,6 +17,8 @@ public class ParkingSpot{
         this.placeName = placeName;
         this.lat = lat;
         this.lng = lng;
+        this.phone = phone;
+        this.time= time;
     }
 
     public String getAccount() {
@@ -62,6 +65,14 @@ public class ParkingSpot{
         return email;
     }
 
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -91,6 +102,14 @@ public class ParkingSpot{
     }
     public Double getLng() {
         return lng;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setLng(Double lng) {

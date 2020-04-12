@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,34 +43,34 @@ public class carBooking extends AppCompatActivity {
                 .setQuery(databaseReference, ParkingSpot.class)
                 .build();
 
-        FirebaseRecyclerAdapter<ParkingSpot,bookViewHolder> adapter =
-                new FirebaseRecyclerAdapter<ParkingSpot, bookViewHolder>(options) {
-                    @Override
-                    protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull ParkingSpot model) {
-                        String parkingSpot = model.getCarStanding();
-                        if(parkingSpot.equals("Yes")){
-                            holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#ff0000"));
-                            holder.textViewBookSpot.setEnabled(false);
-                        } else {
-                            holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#00ff00"));
-                            holder.textViewBookSpot.setEnabled(true);
-                            holder.textViewChangeSpot.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    startActivity(new Intent(getApplicationContext(),carBookingBytime.class));
-                                }
-                            });
+        FirebaseRecyclerAdapter<ParkingSpot,bookViewHolder> adapter = new FirebaseRecyclerAdapter<ParkingSpot, bookViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull ParkingSpot model) {
+                String parkingSpot = model.getCarStanding();
+                if(parkingSpot.equals("Yes")){
+                    holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#ff0000"));
+                    holder.textViewBookSpot.setEnabled(false);
+                } else {
+                    holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#00ff00"));
+                    holder.textViewBookSpot.setEnabled(true);
+                    holder.textViewChangeSpot.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getApplicationContext(),carBookingBytime.class));
                         }
-                    }
+                    });
+                }
+            }
 
-                    @NonNull
-                    @Override
-                    public bookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.car_recycler_view, parent, false);
-                        bookViewHolder holder = new bookViewHolder(view);
-                        return holder;
-                    }
-                };
+            @NonNull
+            @Override
+            public bookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.car_recycler_view, parent, false);
+                bookViewHolder holder = new bookViewHolder(view);
+                return holder;
+            }
+        };
+        //Log.w("fd","gdfghhb");
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
