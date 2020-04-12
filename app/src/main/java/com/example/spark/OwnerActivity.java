@@ -14,19 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.Objects;
 
@@ -46,7 +40,7 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_owner);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        databaseReference = FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+        databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -66,7 +60,7 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
                 new FirebaseRecyclerAdapter<ParkingSpot, OwnerHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull ParkingSpot model) {
-                        String parkingSpot = model.getCar_standing();
+                        String parkingSpot = model.getCarStanding();
                         if(parkingSpot.equals("Yes")){
                             holder.spot.setBackgroundColor(Color.parseColor("#ff0000"));
                         } else {

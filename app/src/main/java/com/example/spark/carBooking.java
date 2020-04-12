@@ -35,7 +35,7 @@ public class carBooking extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+        databaseReference = FirebaseDatabase.getInstance().getReference("data").child("OwwBjybbQcQuGqOp3pznp8T9Z7C3");
 
         FirebaseRecyclerOptions<ParkingSpot> options =
                 new FirebaseRecyclerOptions.Builder<ParkingSpot>()
@@ -46,7 +46,7 @@ public class carBooking extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<ParkingSpot, bookViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull ParkingSpot model) {
-                        String parkingSpot = model.getCar_standing();
+                        String parkingSpot = model.getCarStanding();
                         if(parkingSpot.equals("Yes")){
                             holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#ff0000"));
                             holder.textViewBookSpot.setEnabled(false);

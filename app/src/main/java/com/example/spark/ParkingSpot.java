@@ -1,19 +1,19 @@
 package com.example.spark;
 
 public class ParkingSpot{
-    private String account,car_standing,city,cost,distance,email,name,place_name;
+    private String account, carStanding,city,cost,distance,email,name, placeName;
     private Double lat, lng;
 
-    public ParkingSpot(String account, String car_standing, String city, String cost, String distance, String email, String name, String place_name, Double lat ,
+    public ParkingSpot(String account, String carStanding, String city, String cost, String distance, String email, String name, String placeName, Double lat ,
                        Double lng) {
         this.account = account;
-        this.car_standing = car_standing;
+        this.carStanding = carStanding;
         this.city = city;
         this.cost = cost;
         this.distance = distance;
         this.email = email;
         this.name = name;
-        this.place_name = place_name;
+        this.placeName = placeName;
         this.lat = lat;
         this.lng = lng;
     }
@@ -26,12 +26,12 @@ public class ParkingSpot{
         this.account = account;
     }
 
-    public String getCar_standing() {
-        return car_standing;
+    public String getCarStanding() {
+        return carStanding;
     }
 
-    public void setCar_standing(String car_standing) {
-        this.car_standing = car_standing;
+    public void setCarStanding(String carStanding) {
+        this.carStanding = carStanding;
     }
 
     public String getCity() {
@@ -74,12 +74,12 @@ public class ParkingSpot{
         this.name = name;
     }
 
-    public String getPlace_name() {
-        return place_name;
+    public String getPlaceName() {
+        return placeName;
     }
 
-    public void setPlace_name(String place_name) {
-        this.place_name = place_name;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 
     public Double getLat() {

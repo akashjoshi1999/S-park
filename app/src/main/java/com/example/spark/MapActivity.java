@@ -13,6 +13,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -312,14 +313,15 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
 
 
         mMap.setOnMarkerClickListener(this);
-        FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").
+        FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").
                 addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                        boolean x = dataSnapshot.hasChildren();
 //                        x = dataSnapshot.hasChild("lat");
-                        double Lat = Double.parseDouble(dataSnapshot.child("lat").getValue(String.class));
-                        double Lng = Double.parseDouble(dataSnapshot.child("lng").getValue(String.class));
+                        Log.d("DBG", dataSnapshot.toString());
+                        double Lat = dataSnapshot.child("lat").getValue(Double.class);
+                        double Lng = dataSnapshot.child("lng").getValue(Double.class);
                         bvm = new LatLng(Lat, Lng);
 
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bvm, 8.5f));

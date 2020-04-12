@@ -52,7 +52,7 @@ public class PaymentActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         final String Amount= bundle.getString("Amount");
         firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReference = firebaseDatabase.getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+        final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -97,7 +97,7 @@ public class PaymentActivity extends AppCompatActivity {
                 OwnerPayment ownerPayment = new OwnerPayment(
                         UserName,userUPIID,Amount
                 );
-                FirebaseDatabase.getInstance().getReference("AccountDetails")
+                FirebaseDatabase.getInstance().getReference("data")
                         .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history")
                         .setValue(userPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

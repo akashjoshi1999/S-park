@@ -143,7 +143,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                         firebaseAccountDetails fad = new firebaseAccountDetails(
                                 Account_Detail, name, email,password
                         );
-                        FirebaseDatabase.getInstance().getReference("AccountDetails")
+                        FirebaseDatabase.getInstance().getReference("data")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(fad).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
