@@ -45,6 +45,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private UserProfileChangeRequest profileUpdates;
     private Uri uri;
+    public int accept,accept_1;
     private Uri.Builder builder;
     private final String URI = "https://api.qrserver.com/v1/create-qr-code/?size=150x150";
     @Override
@@ -146,8 +147,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-
-
                     FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
                             addValueEventListener(new ValueEventListener() {
                       @Override
@@ -156,6 +155,8 @@ public class Login extends AppCompatActivity {
                         String account = dataSnapshot.child("account").getValue(String.class);
                            //Log.d("","account user");
                          if(account.equals("User")){
+
+                             accept =1;
                              //Log.d("","account, user");
                              Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
                              progressDialog.dismiss();
@@ -164,19 +165,34 @@ public class Login extends AppCompatActivity {
                              //Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
                              Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
                              startActivity(intent);
-                         } else {
-                             //Log.d("","account, owner");
-                            Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            Intent intent = new Intent(Login.this, OwnerActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
-                            Log.v(TAG,"User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
-                            startActivity(intent);
                          }
+
                        }
                       }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance().getReference("data").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .addValueEventListener(new ValueEventListener() {
+                                @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChild("account")) {
+                                String account1 = dataSnapshot.child("account").getValue(String.class);
+                                //Log.d("","account, owner");
+                                if(account1.equals("Owner")) {
+                                    Toast.makeText(Login.this, "User Authenticated...", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(Login.this, OwnerActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    Log.v(TAG, "User id " + firebaseAuth.getCurrentUser().getUid());
+                                    Log.v(TAG, "User id " + Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid());
+                                    startActivity(intent);
+                                }
+                            }
+                        }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -200,3 +216,5 @@ public class Login extends AppCompatActivity {
     }
 
 }
+
+
