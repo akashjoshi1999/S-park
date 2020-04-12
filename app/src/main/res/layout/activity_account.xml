@@ -87,8 +87,8 @@
 
             <EditText
                 android:id="@+id/text_username"
-                android:layout_width="145dp"
-                android:layout_height="35dp"
+                android:layout_width="148dp"
+                android:layout_height="55dp"
                 android:layout_marginTop="26dp"
                 android:layout_marginEnd="63dp"
                 android:layout_marginBottom="27dp"
@@ -102,8 +102,8 @@
 
             <EditText
                 android:id="@+id/text_useremail"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="150dp"
+                android:layout_height="54dp"
                 android:layout_marginBottom="28dp"
                 android:text=""
                 android:textAlignment="textEnd"
@@ -116,8 +116,8 @@
 
             <EditText
                 android:id="@+id/text_userphone"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="150dp"
+                android:layout_height="49dp"
                 android:layout_marginBottom="16dp"
                 android:text=""
                 android:textAlignment="center"
@@ -211,11 +211,12 @@
                 app:layout_constraintStart_toStartOf="@+id/text_userChangePassword"
                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
-            <Button
+            <TextView
                 android:id="@+id/buttonUpdate"
                 android:layout_width="74dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="29dp"
+                android:textAlignment="center"
                 android:background="@drawable/gradient_red"
                 android:text="@string/update"
                 android:textColor="#ffffff"

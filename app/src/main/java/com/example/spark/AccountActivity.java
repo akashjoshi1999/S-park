@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,9 +37,9 @@ import java.util.Objects;
 public class AccountActivity extends AppCompatActivity {
 
     private EditText user_name,user_email,userphone;
-    private TextView changePassword,userDeactivate;
+    private TextView changePassword,userDeactivate,dataChange;
     private ImageView userImage;
-    private Button dataChange,uploadImage;
+    private Button uploadImage;
     private static final int Imageback = 1;
     private StorageReference Folder;
     FirebaseAuth firebaseAuth;
@@ -49,13 +50,17 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        //set up full screen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Folder = FirebaseStorage.getInstance().getReference().child("ImageFolder");
 
         user_name = (EditText) findViewById(R.id.text_username);
         user_email = (EditText) findViewById(R.id.text_useremail);
         userphone = (EditText) findViewById(R.id.text_userphone);
         userImage = (ImageView) findViewById(R.id.imageProfile);
-        dataChange = (Button) findViewById(R.id.buttonUpdate);
+        dataChange = (TextView) findViewById(R.id.buttonUpdate);
         uploadImage = (Button) findViewById(R.id.selectImage);
         changePassword = (TextView)(findViewById(R.id.text_userChangePassword));
         userDeactivate = (TextView)findViewById(R.id.text_userDeactivate);
