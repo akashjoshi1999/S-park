@@ -9,8 +9,8 @@
 
     <EditText
         android:id="@+id/editTextAddGoogleID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="244dp"
+        android:layout_height="50dp"
         android:layout_marginTop="59dp"
         android:layout_marginBottom="19dp"
         android:ems="10"

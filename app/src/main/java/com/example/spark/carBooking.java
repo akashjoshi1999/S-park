@@ -35,6 +35,8 @@ public class carBooking extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+
         FirebaseRecyclerOptions<ParkingSpot> options =
                 new FirebaseRecyclerOptions.Builder<ParkingSpot>()
                 .setQuery(databaseReference, ParkingSpot.class)
@@ -77,7 +79,7 @@ public class carBooking extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_booking);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        databaseReference = FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
