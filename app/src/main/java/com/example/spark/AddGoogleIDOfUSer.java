@@ -8,6 +8,6 @@ public class AddGoogleIDOfUSer {
     }
 
     public AddGoogleIDOfUSer(String id) {
-        Id = id;
+        this.Id = id;
     }
 }

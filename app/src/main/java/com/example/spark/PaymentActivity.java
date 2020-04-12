@@ -74,8 +74,9 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
+                PaymentProfile paymentProfile1 = dataSnapshot.child("Id").child("Id").getValue(PaymentProfile.class);
                 UserName = paymentProfile.getuName();
-                userUPIID = paymentProfile.getUpiId();
+                userUPIID = paymentProfile1.getUpiId();
             }
 
             @Override

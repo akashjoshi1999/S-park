@@ -157,7 +157,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                             }
                         });
                     } else {
-                        Toast.makeText(signUp.this, "User Not Registered...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(signUp.this, "Owner Not Registered...", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 }

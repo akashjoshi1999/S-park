@@ -1,15 +1,15 @@
 package com.example.spark;
 
 public class firebaseAccountDetails {
-    public String account,name,email,paasword;
+    public String account,name,email,password;
 
     public firebaseAccountDetails(){
 
     }
-    public firebaseAccountDetails(String acccount, String name, String email,String paasword) {
-        this.account = acccount;
+    public firebaseAccountDetails(String account, String name, String email,String password) {
+        this.account = account;
         this.name = name;
         this.email = email;
-        this.paasword = paasword;
+        this.password = password;
     }
 }
