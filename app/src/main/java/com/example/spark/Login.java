@@ -154,7 +154,7 @@ public class Login extends AppCompatActivity {
                      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        if (dataSnapshot.hasChild("account")){
                         String account = dataSnapshot.child("account").getValue(String.class);
-                           //Log.d("","account, user");
+                           //Log.d("","account user");
                          if(account.equals("User")){
                              //Log.d("","account, user");
                              Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();

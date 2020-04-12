@@ -9,13 +9,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,60 +31,58 @@ import com.google.firebase.storage.UploadTask;
 import com.google.firebase.storage.internal.Util;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Vehicle extends AppCompatActivity {
 
     private EditText userCarNumber,userCarModel;
-    private Button submitVehicleDetails;
+    private TextView submitVehicleDetails;
     private ImageView carImage;
     private static final int Imageback = 1;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     FirebaseStorage Folder;
-    private VehicleDetails vehicleDetails;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
-
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        //set up full screen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         userCarNumber = (EditText) findViewById(R.id.textNumberPlate);
         userCarModel = (EditText) findViewById(R.id.textModel);
-        submitVehicleDetails = (Button) findViewById(R.id.buttonCarDetails);
+        submitVehicleDetails = (TextView) findViewById(R.id.buttonCarDetails);
         carImage = (ImageView) findViewById(R.id.imageViewCar);
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("AccountDetails");
-        vehicleDetails = new VehicleDetails();
-
-    }
-
-    private void getValues(){
-        vehicleDetails.setCarNumber(userCarNumber.getText().toString().trim());
-        vehicleDetails.setCarModel(userCarModel.getText().toString().trim());
-    }
-    public void submitUserDetails(View view) {
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        submitVehicleDetails.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                getValues();
-                databaseReference.child(firebaseAuth.getCurrentUser().getUid()).setValue(vehicleDetails);
-                Toast.makeText(Vehicle.this,"Vehicle details uploaded",Toast.LENGTH_LONG).show();
-
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                startActivityForResult(intent,Imageback);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onClick(View v) {
+                String carNumber=userCarNumber.getText().toString().trim();
+                String carModel = userCarModel.getText().toString().trim();
+                VehicleDetails vehicleDetails = new VehicleDetails(
+                        carNumber,carModel
+                );
+                FirebaseDatabase.getInstance().getReference("AccountDetails")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("vehicle").setValue(vehicleDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(Vehicle.this,"Vehicle details uploaded",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(),MapActivity.class));
+                        }
+                    }
+                });
             }
         });
+
+
+
+
+        }
     }
 
 //    @Override
@@ -112,4 +113,4 @@ public class Vehicle extends AppCompatActivity {
 //            });
 //        }
 //    }
-}
+

@@ -102,8 +102,8 @@
 
             <EditText
                 android:id="@+id/text_useremail"
-                android:layout_width="150dp"
-                android:layout_height="54dp"
+                android:layout_width="191dp"
+                android:layout_height="53dp"
                 android:layout_marginBottom="28dp"
                 android:text=""
                 android:textAlignment="textEnd"
@@ -124,6 +124,7 @@
                 android:textColor="#ff3300"
                 app:layout_constraintBottom_toTopOf="@+id/buttonUpdate"
                 app:layout_constraintEnd_toEndOf="@+id/text_useremail"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/text_useremail"
                 app:layout_constraintTop_toBottomOf="@+id/text_useremail" />
 

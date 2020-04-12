@@ -29,6 +29,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="49dp"
         android:hint="@string/number_plate"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textModel"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +43,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="311dp"
         android:hint="@string/model"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,14 +51,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textNumberPlate"
         tools:ignore="MissingConstraints" />
 
-    <Button
+    <TextView
         android:id="@+id/buttonCarDetails"
         android:layout_width="140dp"
         android:layout_height="47dp"
         android:background="@drawable/gradient_red"
-        android:onClick="submitUserDetails"
-        android:text="@string/submit"
+        android:text="Add"
         android:textColor="#b3b3b3"
+        android:textAlignment="center"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
