@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,11 +32,23 @@ public class carBooking extends AppCompatActivity {
     public List<BookTheVehicle> bookTheVehicleslist;
     private DatabaseReference databaseReference;
     private MyBookAdapter myBookAdapter;
-
+    public String carStanding;
     @Override
     protected void onStart() {
         super.onStart();
-
+//        FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.hasChild("car_standing")){
+//                    carStanding = dataSnapshot.child("car_standing").getValue(String.class);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
         databaseReference = FirebaseDatabase.getInstance().getReference("data").child("OwwBjybbQcQuGqOp3pznp8T9Z7C3");
 
         FirebaseRecyclerOptions<ParkingSpot> options =
@@ -43,7 +56,8 @@ public class carBooking extends AppCompatActivity {
                 .setQuery(databaseReference, ParkingSpot.class)
                 .build();
 
-        FirebaseRecyclerAdapter<ParkingSpot,bookViewHolder> adapter = new FirebaseRecyclerAdapter<ParkingSpot, bookViewHolder>(options) {
+        FirebaseRecyclerAdapter<ParkingSpot,bookViewHolder> adapter =
+                new FirebaseRecyclerAdapter<ParkingSpot, bookViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull ParkingSpot model) {
                 String parkingSpot = model.getCarStanding();
