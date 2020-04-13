@@ -1,7 +1,10 @@
 package com.example.spark;
 
+import android.annotation.SuppressLint;
 import android.app.LauncherActivity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder> {
 
@@ -30,10 +35,22 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        BookTheVehicle bookTheVehicle = bookTheVehicles.get(position);
-        holder.textViewBookSpot.setText(bookTheVehicle.getSpotBook());
+        //BookTheVehicle bookTheVehicle = bookTheVehicles.get(position);
+        //holder.textViewBookSpot.setText(bookTheVehicle.getSpotBook());
         if(bookTheVehicles.get(position).getCar_booking().equals("Yes")){
-            holder.textViewButtonBookSpot.setVisibility(View.VISIBLE);
+            holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#ff0000"));
+            holder.textViewBookSpot.setEnabled(false);
+        }
+        else {
+            holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#00ff00"));
+            holder.textViewBookSpot.setEnabled(true);
+            holder.textViewChangeSpot.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("RestrictedApi")
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(getApplicationContext(),carBookingBytime.class));
+                }
+            });
         }
     }
 
@@ -43,11 +60,10 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView textViewBookSpot;
-        public TextView textViewButtonBookSpot;
+        public TextView textViewChangeSpot,textViewBookSpot;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewBookSpot = (TextView) itemView.findViewById(R.id.pickSpot);
+            textViewChangeSpot = (TextView) itemView.findViewById(R.id.pickSpot);
             textViewBookSpot = (TextView) itemView.findViewById(R.id.bookSpot);
 
         }
