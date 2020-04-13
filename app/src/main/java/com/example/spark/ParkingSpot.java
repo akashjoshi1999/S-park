@@ -1,27 +1,26 @@
 package com.example.spark;
 
 public class ParkingSpot{
-    public String account, carStanding,city,cost,distance,email,name, placeName, phone;
-    public int time;
+    public String account, car_standing,city,email,name, place_name;
+    public int time,cost,distance,phone;
     public Double lat, lng;
 
     public ParkingSpot() {
     }
 
-    public ParkingSpot(String account, String carStanding, String city, String cost, String distance, String email, String name, String placeName, Double lat ,
-                       Double lng, String phone, int time) {
+    public ParkingSpot(String account, String car_standing, String city, String email, String name, String place_name, int time, int cost, int distance, int phone, Double lat, Double lng) {
         this.account = account;
-        this.carStanding = carStanding;
+        this.car_standing = car_standing;
         this.city = city;
-        this.cost = cost;
-        this.distance = distance;
         this.email = email;
         this.name = name;
-        this.placeName = placeName;
+        this.place_name = place_name;
+        this.time = time;
+        this.cost = cost;
+        this.distance = distance;
+        this.phone = phone;
         this.lat = lat;
         this.lng = lng;
-        this.phone = phone;
-        this.time= time;
     }
 
     public String getAccount() {
@@ -32,12 +31,12 @@ public class ParkingSpot{
         this.account = account;
     }
 
-    public String getCarStanding() {
-        return carStanding;
+    public String getCar_standing() {
+        return car_standing;
     }
 
-    public void setCarStanding(String carStanding) {
-        this.carStanding = carStanding;
+    public void setCar_standing(String car_standing) {
+        this.car_standing = car_standing;
     }
 
     public String getCity() {
@@ -48,32 +47,8 @@ public class ParkingSpot{
         this.city = city;
     }
 
-    public String getCost() {
-        return cost;
-    }
-
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
-
-    public String getDistance() {
-        return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
     }
 
     public void setEmail(String email) {
@@ -88,12 +63,44 @@ public class ParkingSpot{
         this.name = name;
     }
 
-    public String getPlaceName() {
-        return placeName;
+    public String getPlace_name() {
+        return place_name;
     }
 
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
+    public void setPlace_name(String place_name) {
+        this.place_name = place_name;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     public Double getLat() {
@@ -103,16 +110,9 @@ public class ParkingSpot{
     public void setLat(Double lat) {
         this.lat = lat;
     }
+
     public Double getLng() {
         return lng;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public void setLng(Double lng) {

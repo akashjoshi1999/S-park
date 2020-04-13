@@ -49,6 +49,9 @@ public class carBooking extends AppCompatActivity {
 //            }
 //        });
         databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+//        databaseReference = FirebaseDatabase.getInst;
+
+
 
         FirebaseRecyclerOptions<ParkingSpot> options =
                 new FirebaseRecyclerOptions.Builder<ParkingSpot>()
@@ -59,7 +62,7 @@ public class carBooking extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<ParkingSpot, bookViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull ParkingSpot model) {
-                String parkingSpot = model.getCarStanding();
+                String parkingSpot = model.getCar_standing();
                 if(parkingSpot.equals("Yes")){
                     holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#ff0000"));
                     holder.textViewBookSpot.setEnabled(false);
@@ -99,7 +102,7 @@ public class carBooking extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-//        FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3")
+//        FirebaseDatabase.getInstance().getReference().child("path")
 //        .addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

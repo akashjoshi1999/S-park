@@ -60,7 +60,7 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
                 new FirebaseRecyclerAdapter<ParkingSpot, OwnerHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull ParkingSpot model) {
-                        String parkingSpot = model.getCarStanding();
+                        String parkingSpot = model.getCar_standing();
                         if(parkingSpot.equals("Yes")){
                             holder.spot.setBackgroundColor(Color.parseColor("#ff0000"));
                         } else {

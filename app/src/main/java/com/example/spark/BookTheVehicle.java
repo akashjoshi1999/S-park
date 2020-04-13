@@ -3,20 +3,20 @@ package com.example.spark;
 public class BookTheVehicle {
 
     //private String spotBook;
-    private String car_booking;
+    public String car_standing;
 
     public BookTheVehicle() {
     }
 
-    public BookTheVehicle(String car_booking) {
-        this.car_booking = car_booking;
+    public String getCar_standing() {
+        return car_standing;
     }
 
-    public String getCar_booking() {
-        return car_booking;
+    public void setCar_standing(String car_standing) {
+        this.car_standing = car_standing;
     }
 
-    public void setCar_booking(String car_booking) {
-        this.car_booking = car_booking;
+    public BookTheVehicle(String car_standing) {
+        this.car_standing = car_standing;
     }
 }
