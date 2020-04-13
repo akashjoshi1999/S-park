@@ -77,7 +77,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
         , OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener {
 
     private NavigationView navigationView;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private FusedLocationProviderClient mFusedLocationProviderClient,CurrentFusedLocation;
     private PlacesClient placesClient;
     private List<AutocompletePrediction> predictionList;
     private Location mLastKnownLocation;
@@ -175,12 +175,18 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
             }
         });
 
+        CurrentFusedLocation = LocationServices.getFusedLocationProviderClient(this);
         imageViewReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (location != null) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),DEFAULT_ZOOM));
-                }
+                CurrentFusedLocation.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if(location != null){
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),DEFAULT_ZOOM));
+                        }
+                    }
+                });
             }
         });
     }
