@@ -276,6 +276,7 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //mMap.setMyLocationEnabled(true);
         if(mapView != null && mapView.findViewById(Integer.parseInt("1")) != null){
             View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();

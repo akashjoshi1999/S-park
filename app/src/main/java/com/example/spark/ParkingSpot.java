@@ -1,12 +1,15 @@
 package com.example.spark;
 
 public class ParkingSpot{
-    private String account, carStanding,city,cost,distance,email,name, placeName, phone;
-    private int time;
-    private Double lat, lng;
+    public String account, carStanding,city,cost,distance,email,name, placeName, phone;
+    public int time;
+    public Double lat, lng;
+
+    public ParkingSpot() {
+    }
 
     public ParkingSpot(String account, String carStanding, String city, String cost, String distance, String email, String name, String placeName, Double lat ,
-                       Double lng,String phone, int time) {
+                       Double lng, String phone, int time) {
         this.account = account;
         this.carStanding = carStanding;
         this.city = city;
