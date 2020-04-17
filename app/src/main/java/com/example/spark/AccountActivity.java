@@ -40,6 +40,7 @@ public class AccountActivity extends AppCompatActivity {
     private TextView changePassword,userDeactivate,dataChange;
     private ImageView userImage;
     private Button uploadImage;
+    public String account;
     private static final int Imageback = 1;
     private StorageReference Folder;
     FirebaseAuth firebaseAuth;
@@ -75,7 +76,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-                //String name = dataSnapshot.child("Name").getValue(String.class);
+                account = userProfile.getAccount();
                 user_name.setText(userProfile.getName());
                 user_email.setText(userProfile.getEmail());
                 userphone.setText(userProfile.getPhone());
@@ -130,7 +131,7 @@ public class AccountActivity extends AppCompatActivity {
                 String email= user_email.getText().toString();
                 String phone = userphone.getText().toString();
 
-                UserProfile userProfile = new UserProfile(name, email, phone);
+                UserProfile userProfile = new UserProfile(account,name, email, phone);
                 databaseReference.setValue(userProfile);
             }
         });
