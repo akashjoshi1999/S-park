@@ -48,7 +48,7 @@ public class ActivityUserChangePassword extends AppCompatActivity {
         newPass = (EditText) findViewById(R.id.editNewPassword);
         confirmNewPass = (EditText) findViewById(R.id.editConfirmNewPassword);
 
-        firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        //firebaseUser = firebaseAuth.getInstance().getCurrentUser();
         final String currentPassword = currentPass.getText().toString();
         final String newPassword = newPass.getText().toString();
         final String confirmNewPassword = confirmNewPass.getText().toString();
