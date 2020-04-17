@@ -113,7 +113,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         firebaseAccountDetails fad = new firebaseAccountDetails(
-                                Account_Detail, name, email,password
+                                Account_Detail, name, email
                         );
                         FirebaseDatabase.getInstance().getReference("AccountDetails")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -141,7 +141,7 @@ public class signUp extends AppCompatActivity implements View.OnClickListener, A
                     if (task.isSuccessful()) {
                         finish();
                         firebaseAccountDetails fad = new firebaseAccountDetails(
-                                Account_Detail, name, email,password
+                                Account_Detail, name, email
                         );
                         FirebaseDatabase.getInstance().getReference("data")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
