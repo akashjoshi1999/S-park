@@ -163,7 +163,17 @@ public class AccountActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == Imageback && requestCode == RESULT_OK){
             Uri ImageData = data.getData();
-            final StorageReference storageReference = Folder.child("image"+ImageData.getLastPathSegment());
+            final StorageReference storageReference = Folder.child("Images").child(ImageData.getLastPathSegment());
+
+//            storageReference.putFile(ImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Uri downloadUrl = taskSnapshot;
+//                    newStudent.child("image").setValue(downloadUrl);
+//                }
+//            });
+
+
             storageReference.putFile(ImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
