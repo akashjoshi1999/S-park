@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,7 +50,7 @@ public class AccountActivity extends AppCompatActivity {
     private TextView changePassword,userDeactivate,dataChange;
     private ImageView userImage;
     private Button uploadImage;
-    public String account,name,email,phone,url;
+    public String account,name,email,phone,url,setUpUrl;
     private static final int Imageback = 1;
     private StorageReference Folder;
     FirebaseAuth firebaseAuth;
@@ -90,6 +91,8 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+//                setUpUrl = userProfile.getUrl();
+//                Glide.with(AccountActivity.this).load(setUpUrl).into(userImage);
                 account = userProfile.getAccount();
                 user_name.setText(userProfile.getName());
                 user_email.setText(userProfile.getEmail());
@@ -102,66 +105,66 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-        userImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFileChooser();
-            }
-        });
-
-
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //checking if file is available
-                if (filePath != null) {
-                    //displaying progress dialog while image is uploading
-                    final ProgressDialog progressDialog = new ProgressDialog(AccountActivity.this);
-                    progressDialog.setTitle("Uploading");
-                    progressDialog.show();
-
-                    //getting the storage reference
-                    StorageReference sRef = storageReference.child(STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
-
-                    //adding the file to reference
-                    sRef.putFile(filePath)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    //dismissing the progress dialog
-                                    progressDialog.dismiss();
-
-                                    //displaying success toast
-                                    Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-
-                                    //creating the upload object to store uploaded image details
-                                    UserProfile upload = new UserProfile(account,name, email, phone, taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-
-                                    //adding an upload to firebase database
-                                    String uploadId = mDatabase.push().getKey();
-                                    mDatabase.child(uploadId).setValue(upload);
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                    //displaying the upload progress
-                                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                    progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
-                                }
-                            });
-                } else {
-                    //display an error if no file is selected
-                }
-            }
-        });
+//        userImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showFileChooser();
+//            }
+//        });
+//
+//
+//        uploadImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //checking if file is available
+//                if (filePath != null) {
+//                    //displaying progress dialog while image is uploading
+//                    final ProgressDialog progressDialog = new ProgressDialog(AccountActivity.this);
+//                    progressDialog.setTitle("Uploading");
+//                    progressDialog.show();
+//
+//                    //getting the storage reference
+//                    StorageReference sRef = storageReference.child(STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
+//
+//                    //adding the file to reference
+//                    sRef.putFile(filePath)
+//                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    //dismissing the progress dialog
+//                                    progressDialog.dismiss();
+//
+//                                    //displaying success toast
+//                                    Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+//
+//                                    //creating the upload object to store uploaded image details
+//                                    UserProfile upload = new UserProfile(account,name, email, phone, taskSnapshot.getMetadata().getReference().getDownloadUrl());
+//
+//                                    //adding an upload to firebase database
+//                                    String uploadId = mDatabase.push().getKey();
+//                                    mDatabase.child(uploadId).setValue(upload);
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception exception) {
+//                                    progressDialog.dismiss();
+//                                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+//                                }
+//                            })
+//                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    //displaying the upload progress
+//                                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+//                                    progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+//                                }
+//                            });
+//                } else {
+//                    //display an error if no file is selected
+//                }
+//            }
+//        });
 
 
         userDeactivate.setOnClickListener(new View.OnClickListener() {
@@ -207,21 +210,21 @@ public class AccountActivity extends AppCompatActivity {
                 email= user_email.getText().toString();
                 phone = userphone.getText().toString();
 
-                mDatabase_url = FirebaseDatabase.getInstance().getReference(DATABASE_PATH_UPLOADS);
-                mDatabase_url.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        UserProfile user = dataSnapshot.getValue(UserProfile.class);
-                        url = user.getUrl();
-                    }
+//                mDatabase_url = FirebaseDatabase.getInstance().getReference(DATABASE_PATH_UPLOADS);
+//                mDatabase_url.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        UserProfile user = dataSnapshot.getValue(UserProfile.class);
+//                        url = user.getUrl().;
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                UserProfile userProfile = new UserProfile(account,name, email, phone,url);
+                UserProfile userProfile = new UserProfile(account,name, email, phone);
                 databaseReference.setValue(userProfile);
             }
         });
@@ -235,18 +238,18 @@ public class AccountActivity extends AppCompatActivity {
 
     }
 
-    private Object getFileExtension(Uri filePath) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(filePath));
-    }
-
-    private void showFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
+//    private Object getFileExtension(Uri filePath) {
+//        ContentResolver cR = getContentResolver();
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        return mime.getExtensionFromMimeType(cR.getType(filePath));
+//    }
+//
+//    private void showFileChooser() {
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+//    }
 
 
     public void addVehicle(View view) {
