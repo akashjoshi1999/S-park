@@ -5,16 +5,18 @@ public class UserProfile {
     public String name;
     public String email;
     public String phone;
+    public String url;
 
     public UserProfile(){
 
     }
 
-    public UserProfile(String account, String name, String email, String phone) {
+    public UserProfile(String account, String name, String email, String phone, String url) {
         this.account = account;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.url = url;
     }
 
     public String getAccount() {
@@ -47,5 +49,13 @@ public class UserProfile {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
