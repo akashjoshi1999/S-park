@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,11 +29,44 @@ import java.util.Objects;
 
 public class ActivityUserChangePassword extends AppCompatActivity {
 
-    private EditText currentPass,newPass,confirmNewPass;
-    private TextView passwordChange;
+    public EditText currentPass,newPass,confirmNewPass;
+    private Button passwordChange;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
+    public String currentPassword,newPassword,confirmNewPassword;
     private FirebaseUser firebaseUser;
+
+
+    public void temp1 (android.view.View v){
+        currentPassword = currentPass.getText().toString();
+        newPassword = newPass.getText().toString();
+        confirmNewPassword = confirmNewPass.getText().toString();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        final String email = user.getEmail();
+        AuthCredential authCredential = EmailAuthProvider.getCredential(email, currentPassword);
+        user.reauthenticate(authCredential).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    if(newPassword.equals(confirmNewPassword)){
+                        user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(ActivityUserChangePassword.this,"Password Changed",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ActivityUserChangePassword.this,MapActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        });
+                    } else {
+                        Toast.makeText(ActivityUserChangePassword.this,"Both password is different",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +77,10 @@ public class ActivityUserChangePassword extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        passwordChange = (TextView) findViewById(R.id.buttonUpdatePassword);
+        passwordChange = (Button) findViewById(R.id.buttonUpdatePassword);
         currentPass = (EditText) findViewById(R.id.editCurrentPassword);
         newPass = (EditText) findViewById(R.id.editNewPassword);
         confirmNewPass = (EditText) findViewById(R.id.editConfirmNewPassword);
-
-        //firebaseUser = firebaseAuth.getInstance().getCurrentUser();
-        final String currentPassword = currentPass.getText().toString();
-        final String newPassword = newPass.getText().toString();
-        final String confirmNewPassword = confirmNewPass.getText().toString();
 
         if(TextUtils.isEmpty(currentPassword)){
             currentPass.setError("Current password is required");
@@ -66,52 +95,6 @@ public class ActivityUserChangePassword extends AppCompatActivity {
             return;
         }
 
-        passwordChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                user = FirebaseAuth.getInstance().getCurrentUser();
-                final String email = user.getEmail();
-
-                AuthCredential authCredential = EmailAuthProvider.getCredential(email,currentPassword);
-                user.reauthenticate(authCredential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            if(newPassword == confirmNewPassword){
-                                user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            Toast.makeText(ActivityUserChangePassword.this,"Password Changed",Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(ActivityUserChangePassword.this,MapActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(ActivityUserChangePassword.this,"Both password nis different",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                });
-            }
-        });
-
-//        firebaseUser.updatePassword(currentPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if(task.isSuccessful()){
-//                    Toast.makeText(ActivityUserChangePassword.this,"Password Changed",Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(ActivityUserChangePassword.this,ActivityUserChangePassword.class);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    Toast.makeText(ActivityUserChangePassword.this,"Failed",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
     }
-
 
 }
