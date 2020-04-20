@@ -67,15 +67,17 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        //set up full screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        //set up full screen
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Folder = FirebaseStorage.getInstance().getReference().child("ImageFolder");
 
         user_name = (EditText) findViewById(R.id.text_username);
         user_email = (EditText) findViewById(R.id.text_useremail);
         userphone = (EditText) findViewById(R.id.text_userphone);
+        //userImage is for taking the image for profile
         userImage = (ImageView) findViewById(R.id.imageProfile);
+        // data change is for changing the info about user
         dataChange = (TextView) findViewById(R.id.buttonUpdate);
         uploadImage = (Button) findViewById(R.id.selectImage);
         changePassword = (TextView)(findViewById(R.id.text_userChangePassword));
@@ -105,14 +107,14 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-//        userImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showFileChooser();
-//            }
-//        });
-//
-//
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFileChooser();
+            }
+        });
+
+
 //        uploadImage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -215,7 +217,7 @@ public class AccountActivity extends AppCompatActivity {
 //                    @Override
 //                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                        UserProfile user = dataSnapshot.getValue(UserProfile.class);
-//                        url = user.getUrl().;
+//                        url = user.getUrl();
 //                    }
 //
 //                    @Override
@@ -243,13 +245,13 @@ public class AccountActivity extends AppCompatActivity {
 //        MimeTypeMap mime = MimeTypeMap.getSingleton();
 //        return mime.getExtensionFromMimeType(cR.getType(filePath));
 //    }
-//
-//    private void showFileChooser() {
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-//    }
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
 
 
     public void addVehicle(View view) {
@@ -266,20 +268,20 @@ public class AccountActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                userImage.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//            filePath = data.getData();
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                userImage.setImageBitmap(bitmap);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);

@@ -11,10 +11,9 @@ public class UserProfile {
     public String phone;
     //public String url;
 
-    public UserProfile(){
+    public UserProfile() {
 
     }
-
 
     public UserProfile(String account, String name, String email, String phone) {
         this.account = account;
@@ -54,5 +53,4 @@ public class UserProfile {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 }
