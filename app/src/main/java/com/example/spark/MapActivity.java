@@ -228,15 +228,15 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                 });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 51){
-            if(resultCode == RESULT_OK){
-                //getDevicelocation();
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == 51){
+//            if(resultCode == RESULT_OK){
+//                getDevicelocation();
+//            }
+//        }
+//    }
 
 //    private void getDevicelocation() {
 //        mFusedLocationProviderClient.getLastLocation()

@@ -10,7 +10,9 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,7 +49,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class AccountActivity extends AppCompatActivity {
-
+    private static int RESULT_LOAD_IMAGE = 1;
     private EditText user_name,user_email,userphone;
     private static final int PICK_IMAGE_REQUEST = 234;
     private TextView changePassword,userDeactivate,dataChange;
@@ -89,7 +91,6 @@ public class AccountActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-
         final DatabaseReference databaseReference = firebaseDatabase.getReference("AccountDetails").child(Objects.requireNonNull(firebaseAuth.getUid()));
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -98,6 +99,9 @@ public class AccountActivity extends AppCompatActivity {
                 UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
 //                setUpUrl = userProfile.getUrl();
 //                Glide.with(AccountActivity.this).load(setUpUrl).into(userImage);
+//                URL newurl = new URL(setUpUrl.toString());
+//                mIcon_val = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
+//                userImage.setImageBitmap(mIcon_val);
                 account = userProfile.getAccount();
                 user_name.setText(userProfile.getName());
                 user_email.setText(userProfile.getEmail());
@@ -110,10 +114,33 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        mDatabase = FirebaseDatabase.getInstance().getReference(DATABASE_PATH_UPLOADS);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserProfile user = dataSnapshot.getValue(UserProfile.class);
+                url = user.getUrl();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View arg0) {
+
+
+
+
+//                Intent i = new Intent(
+//                        Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(i, RESULT_LOAD_IMAGE);
                 showFileChooser();
+
             }
         });
 
@@ -121,6 +148,7 @@ public class AccountActivity extends AppCompatActivity {
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.v("xyz", filePath.toString());
                 //checking if file is available
                 if (filePath != null) {
                     //displaying progress dialog while image is uploading
@@ -129,6 +157,10 @@ public class AccountActivity extends AppCompatActivity {
                     progressDialog.show();
 
                     //getting the storage reference
+
+                    Log.v("xyz","sref"+storageReference.toString());
+                    Log.v("xyz", "fp"+filePath.toString());
+
                     StorageReference sRef = storageReference.child(STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
 
                     //adding the file to reference
@@ -143,8 +175,10 @@ public class AccountActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
                                     //creating the upload object to store uploaded image details
-                                    UserProfile upload = new UserProfile(account,name, email, phone, taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-
+                                    String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                                    Log.v("xyz","url2"+url);
+                                    UserProfile upload = new UserProfile(account,name, email, phone, url);
+                                    mDatabase = FirebaseDatabase.getInstance().getReference(DATABASE_PATH_UPLOADS);
                                     //adding an upload to firebase database
                                     String uploadId = mDatabase.push().getKey();
                                     mDatabase.child(uploadId).setValue(upload);
@@ -215,19 +249,7 @@ public class AccountActivity extends AppCompatActivity {
                 email= user_email.getText().toString();
                 phone = userphone.getText().toString();
 
-                mDatabase_url = FirebaseDatabase.getInstance().getReference(DATABASE_PATH_UPLOADS);
-                mDatabase_url.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        UserProfile user = dataSnapshot.getValue(UserProfile.class);
-                        url = user.getUrl();
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
 
                 UserProfile userProfile = new UserProfile(account,name, email, phone,url);
                 databaseReference.setValue(userProfile);
@@ -250,10 +272,14 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void showFileChooser() {
-        Intent intent = new Intent();
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+        //intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
 
     }
 
@@ -288,11 +314,54 @@ public class AccountActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        //Log.v("abc", "STEP0");
         super.onActivityResult(requestCode, resultCode, data);
-        Log.v("abc", Integer.toString(requestCode));
-        Log.v("abc", Integer.toString(resultCode));
-        if(requestCode == 234 && resultCode == Activity.RESULT_OK){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+
+            filePath = data.getData();
+            storageReference = Folder.child("Images").child(filePath.getLastPathSegment());
+
+            try {
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                Cursor cursor = getContentResolver().query(filePath,
+                        filePathColumn, null, null, null);
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
+                cursor.close();
+
+                userImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //Log.v("abc", "STEP0");
+
+
+        else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            filePath = data.getData();
+
+
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(filePath,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            userImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+        }
+
+//
+//        Log.v("abc", Integer.toString(requestCode));
+//        Log.v("abc", Integer.toString(resultCode));
+        else if(requestCode == 234 && resultCode == Activity.RESULT_OK){
 
             Log.v("abc", "STEP1");
             Uri ImageData = data.getData();
