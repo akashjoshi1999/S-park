@@ -114,20 +114,20 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference(DATABASE_PATH_UPLOADS);
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserProfile user = dataSnapshot.getValue(UserProfile.class);
-                url = user.getUrl();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        mDatabase = FirebaseDatabase.getInstance().getReference(DATABASE_PATH_UPLOADS);
+//
+//        mDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                UserProfile user = dataSnapshot.getValue(UserProfile.class);
+//                url = user.getUrl();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

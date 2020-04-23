@@ -21,9 +21,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,28 +50,33 @@ public class carBooking extends AppCompatActivity {
 //
 //            }
 //        });
-        databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+        Query query = FirebaseDatabase.getInstance().getReference("data");
+        //databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 //        databaseReference = FirebaseDatabase.getInst;
 
 
 
-        FirebaseRecyclerOptions<ParkingSpot> options =
-                new FirebaseRecyclerOptions.Builder<ParkingSpot>()
-                .setQuery(databaseReference, ParkingSpot.class)
+        FirebaseRecyclerOptions<Object> options =
+                new FirebaseRecyclerOptions.Builder<Object>()
+                .setQuery(query, Object.class)
                 .build();
 
-        FirebaseRecyclerAdapter<ParkingSpot,bookViewHolder> adapter =
-                new FirebaseRecyclerAdapter<ParkingSpot, bookViewHolder>(options) {
+        FirebaseRecyclerAdapter<Object,bookViewHolder> adapter =
+                new FirebaseRecyclerAdapter<Object, bookViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull ParkingSpot model) {
-                String parkingSpot = model.getCar_standing();
+            protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull Object model) {
+                String parkingSpot = ((HashMap<String, String>)model).get("car_standing");
+                Log.v("abc", "ENTERED FUNCTION"+model.toString());
+                Log.v("abc", "cs: "+parkingSpot);
+
+                //String parkingSpot = ((ParkingSpot)model).getCar_standing();
                 if(parkingSpot.equals("Yes")){
                     holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#ff0000"));
                     holder.textViewBookSpot.setEnabled(false);
                 } else {
                     holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#00ff00"));
                     holder.textViewBookSpot.setEnabled(true);
-                    holder.textViewChangeSpot.setOnClickListener(new View.OnClickListener() {
+                    holder.textViewBookSpot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             startActivity(new Intent(getApplicationContext(),carBookingBytime.class));
