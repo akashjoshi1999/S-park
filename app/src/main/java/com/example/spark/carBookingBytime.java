@@ -53,11 +53,11 @@ public class carBookingBytime extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
                         if(hourOfDay >= 12){
-                            AmPm = "PM";
+                            AmPm = "p";
                         } else {
-                            AmPm = "AM";
+                            AmPm = "a";
                         }
-                        time1 = "%2d:%2d"+hourOfDay+minutes + AmPm;
+                        time1 = hourOfDay+":"+minutes+" "+AmPm;
                         Log.v("abc","time1:"+time1);
                         textViewStartTime.setText(String.format("%2d:%2d",hourOfDay,minutes)+AmPm);
                     }
@@ -74,11 +74,11 @@ public class carBookingBytime extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
                         if(hourOfDay >= 12){
-                            AmPm = "PM";
+                            AmPm = "p";
                         } else {
-                            AmPm = "AM";
+                            AmPm = "a";
                         }
-                        time2 = "%2d:%2d"+hourOfDay+minutes+AmPm;
+                        time2 = hourOfDay+":"+minutes+" "+AmPm;
                         Log.v("abc","time2:"+time2);
                         textViewEndTime.setText(String.format("%2d:%2d",hourOfDay,minutes)+AmPm);
                     }
@@ -95,7 +95,7 @@ public class carBookingBytime extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month+1;
-                        date1= day+"/"+ month +"/" +year;
+                        date1= month+"/"+ day +"/" +year;
                         Log.v("abc","date1:"+date1);
                         TextViewStartDate.setText(date1);
                     }
@@ -112,7 +112,7 @@ public class carBookingBytime extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month+1;
-                        date2= day+"/"+ month +"/" +year;
+                        date2= month+"/"+ day +"/" +year;
                         Log.v("abc","date2:"+date2);
                         TextViewEndDate.setText(date2);
                     }
@@ -127,7 +127,10 @@ public class carBookingBytime extends AppCompatActivity {
                 try {
 
                     String format = "MM/dd/yyyy hh:mm a";
-
+                    String format_date1 = (date1+" "+time1);
+                    String format_date2 = (date2+" "+time2);
+                    Log.v("abc","dateformat1:"+format_date1);
+                    Log.v("abc","datefomate2:"+format_date2);
                     SimpleDateFormat sdf = new SimpleDateFormat(format);
 
                     Date dateObj1 = sdf.parse(date1 + " " + time1);
