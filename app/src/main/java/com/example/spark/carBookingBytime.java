@@ -133,8 +133,12 @@ public class carBookingBytime extends AppCompatActivity {
                     Log.v("abc","datefomate2:"+format_date2);
                     SimpleDateFormat sdf = new SimpleDateFormat(format);
 
-                    Date dateObj1 = sdf.parse(date1 + " " + time1);
-                    Date dateObj2 = sdf.parse(date2 + " " + time2);
+//                    Date dateObj1 = sdf.parse(date1 + " " + time1);
+//                    Date dateObj2 = sdf.parse(date2 + " " + time2);
+                    Date dateObj1 = sdf.parse(format_date1);
+                    Date dateObj2 = sdf.parse(format_date2);
+                    Log.v("abc","formatedata:"+dateObj1.toString());
+                    Log.v("abc","formatedata_23:"+dateObj2.toString());
                     System.out.println(dateObj1);
                     System.out.println(dateObj2 + "\n");
 
