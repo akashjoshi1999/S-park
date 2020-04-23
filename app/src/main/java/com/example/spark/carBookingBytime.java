@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.chooser.ChooserTarget;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class carBookingBytime extends AppCompatActivity {
 
@@ -28,6 +30,7 @@ public class carBookingBytime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_booking_bytime);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         textViewStartTime = (TextView) findViewById(R.id.textViewSetStartTime);
         textViewEndTime = (TextView) findViewById(R.id.textViewSetEndTime);
@@ -55,6 +58,7 @@ public class carBookingBytime extends AppCompatActivity {
                             AmPm = "AM";
                         }
                         time1 = "%2d:%2d"+hourOfDay+minutes + AmPm;
+                        Log.v("abc","time1:"+time1);
                         textViewStartTime.setText(String.format("%2d:%2d",hourOfDay,minutes)+AmPm);
                     }
                 },hour,minute,false);
@@ -75,6 +79,7 @@ public class carBookingBytime extends AppCompatActivity {
                             AmPm = "AM";
                         }
                         time2 = "%2d:%2d"+hourOfDay+minutes+AmPm;
+                        Log.v("abc","time2:"+time2);
                         textViewEndTime.setText(String.format("%2d:%2d",hourOfDay,minutes)+AmPm);
                     }
                 },hour,minute,false);
@@ -91,6 +96,7 @@ public class carBookingBytime extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month+1;
                         date1= day+"/"+ month +"/" +year;
+                        Log.v("abc","date1:"+date1);
                         TextViewStartDate.setText(date1);
                     }
                 },year,month,day);
@@ -107,6 +113,7 @@ public class carBookingBytime extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month+1;
                         date2= day+"/"+ month +"/" +year;
+                        Log.v("abc","date2:"+date2);
                         TextViewEndDate.setText(date2);
                     }
                 },year,month,day);
