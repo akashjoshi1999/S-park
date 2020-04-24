@@ -101,10 +101,11 @@ public class PaymentActivity extends AppCompatActivity {
 //                }
 //            });
         editTextTotalAmount.setText(Integer.toString(Amount));
+        final String amount = String.valueOf(Amount);
         textViewPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PayUsingUPI( OwnerName,PaymentGooglePayID,PaymentName,Amount);
+                PayUsingUPI( OwnerName,PaymentGooglePayID,PaymentName,amount);
                 progressDialog.setMessage("Transaction Pending....");
                 progressDialog.show();
                 UserPayment userPayment = new UserPayment(
@@ -141,7 +142,7 @@ public class PaymentActivity extends AppCompatActivity {
                 }
             }
 
-            private void PayUsingUPI(String name, String upid, String note, int amount) {
+            private void PayUsingUPI(String name, String upid, String note, String amount) {
                 Uri uri =
                         new Uri.Builder()
                                 .scheme("upi")
@@ -151,7 +152,7 @@ public class PaymentActivity extends AppCompatActivity {
 //                                .appendQueryParameter("mc", "your-merchant-code")
 //                                .appendQueryParameter("tr", "your-transaction-ref-id")
                                 .appendQueryParameter("tn", note)
-                                .appendQueryParameter("am", String.valueOf(amount))
+                                .appendQueryParameter("am", amount)
                                 .appendQueryParameter("cu", "INR")
 //                                .appendQueryParameter("url", "your-transaction-url")
                                 .build();
