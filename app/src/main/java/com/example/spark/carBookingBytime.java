@@ -53,13 +53,13 @@ public class carBookingBytime extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
                         if(hourOfDay >= 12){
-                            AmPm = "p";
+                            AmPm = "pm";
                         } else {
-                            AmPm = "a";
+                            AmPm = "am";
                         }
-                        time1 = hourOfDay+":"+minutes+" "+AmPm;
+                        time1 = hourOfDay+":"+minutes;
                         Log.v("abc","time1:"+time1);
-                        textViewStartTime.setText(String.format("%2d:%2d",hourOfDay,minutes)+AmPm);
+                        textViewStartTime.setText(String.format("%2d:%2d",hourOfDay,minutes));
                     }
                 },hour,minute,false);
                 timePickerDialog.show();
@@ -74,13 +74,13 @@ public class carBookingBytime extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
                         if(hourOfDay >= 12){
-                            AmPm = "p";
+                            AmPm = "pm";
                         } else {
-                            AmPm = "a";
+                            AmPm = "am";
                         }
-                        time2 = hourOfDay+":"+minutes+" "+AmPm;
+                        time2 = hourOfDay+":"+minutes;
                         Log.v("abc","time2:"+time2);
-                        textViewEndTime.setText(String.format("%2d:%2d",hourOfDay,minutes)+AmPm);
+                        textViewEndTime.setText(String.format("%2d:%2d",hourOfDay,minutes));
                     }
                 },hour,minute,false);
                 timePickerDialog.show();
@@ -125,20 +125,15 @@ public class carBookingBytime extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-
-                    String format = "MM/dd/yyyy hh:mm a";
-                    String format_date1 = (date1+" "+time1);
-                    String format_date2 = (date2+" "+time2);
-                    Log.v("abc","dateformat1:"+format_date1);
-                    Log.v("abc","datefomate2:"+format_date2);
-                    SimpleDateFormat sdf = new SimpleDateFormat(format);
-
-//                    Date dateObj1 = sdf.parse(date1 + " " + time1);
-//                    Date dateObj2 = sdf.parse(date2 + " " + time2);
-                    Date dateObj1 = sdf.parse(format_date1);
-                    Date dateObj2 = sdf.parse(format_date2);
-                    Log.v("abc","formatedata:"+dateObj1.toString());
-                    Log.v("abc","formatedata_23:"+dateObj2.toString());
+//                    String format_date1 = (date1+" "+time1);
+//                    String format_date2 = (date2+" "+time2);
+//                    Log.v("abc","dateformat1:"+format_date1);
+//                    Log.v("abc","datefomate2:"+format_date2);
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+                    Date dateObj1 = sdf.parse(date1 + " " + time1);
+                    Date dateObj2 = sdf.parse(date2 + " " + time2);
+//                    Date dateObj1 = sdf.parse(format_date1);
+//                    Date dateObj2 = sdf.parse(format_date2);
                     System.out.println(dateObj1);
                     System.out.println(dateObj2 + "\n");
 
@@ -154,7 +149,8 @@ public class carBookingBytime extends AppCompatActivity {
                     String bookMinuteDiff = crunchifyFormatter.format(diffmin);
                     Intent intent = new Intent(carBookingBytime.this, PaymentActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("Amount",((diffhours * 60) + diffmin)*20);
+                    Log.v("abc","price:"+((diffhours * 60) + diffmin));
+                    bundle.putInt("Amount",((diffhours * 60) + diffmin));
                     intent.putExtras(bundle);
                     startActivity(intent);
 

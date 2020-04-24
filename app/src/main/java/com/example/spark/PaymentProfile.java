@@ -1,30 +1,31 @@
 package com.example.spark;
 
 public class PaymentProfile {
-    public String upiId;
-    public String uName;
+    public String name;
+    public String Id;
 
     public PaymentProfile(){
 
     }
-    public PaymentProfile(String upiId, String uName) {
-        this.upiId = upiId;
-        this.uName = uName;
+
+    public PaymentProfile(String name, String id) {
+        this.name = name;
+        Id = id;
     }
 
-    public String getuName() {
-        return uName;
+    public String getName() {
+        return name;
     }
 
-    public void setuName(String uName) {
-        this.uName = uName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUpiId() {
-        return upiId;
+    public String getId() {
+        return Id;
     }
 
-    public void setUpiId(String upiId) {
-        this.upiId = upiId;
+    public void setId(String id) {
+        Id = id;
     }
 }

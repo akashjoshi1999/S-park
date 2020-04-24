@@ -50,7 +50,7 @@ public class PaymentActivity extends AppCompatActivity {
         PaymentName = "Parking Spot";
 
         Bundle bundle = getIntent().getExtras();
-        final String Amount= bundle.getString("Amount");
+        final int Amount= bundle.getInt("Amount");
         firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 
@@ -60,7 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
                 OwnerProfile ownerProfile = dataSnapshot.getValue(OwnerProfile.class);
                 editTextOwnerName.setText(ownerProfile.getName());
                 OwnerName = ownerProfile.getName();
-                PaymentGooglePayID = ownerProfile.getOwnerGooglePayID();
+                PaymentGooglePayID = ownerProfile.getId();
             }
 
             @Override
@@ -70,13 +70,15 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
 
-        final DatabaseReference databaseReference1 = (DatabaseReference) firebaseDatabase.getReference().child("AccountDetails").child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("AccountDetails")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
                 PaymentProfile paymentProfile1 = dataSnapshot.child("Id").child("Id").getValue(PaymentProfile.class);
-                UserName = paymentProfile.getuName();
-                userUPIID = paymentProfile1.getUpiId();
+                UserName = paymentProfile.getName();
+                userUPIID = paymentProfile1.getId();
             }
 
             @Override
@@ -84,7 +86,7 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
-        editTextTotalAmount.setText(Amount);
+        editTextTotalAmount.setText(Integer.toString(Amount));
         textViewPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +127,7 @@ public class PaymentActivity extends AppCompatActivity {
                 }
             }
 
-            private void PayUsingUPI(String name, String upid, String note, String amount) {
+            private void PayUsingUPI(String name, String upid, String note, int amount) {
                 Uri uri =
                         new Uri.Builder()
                                 .scheme("upi")
@@ -135,7 +137,7 @@ public class PaymentActivity extends AppCompatActivity {
 //                                .appendQueryParameter("mc", "your-merchant-code")
 //                                .appendQueryParameter("tr", "your-transaction-ref-id")
                                 .appendQueryParameter("tn", note)
-                                .appendQueryParameter("am", amount)
+                                .appendQueryParameter("am", String.valueOf(amount))
                                 .appendQueryParameter("cu", "INR")
 //                                .appendQueryParameter("url", "your-transaction-url")
                                 .build();

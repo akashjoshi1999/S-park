@@ -2,19 +2,14 @@ package com.example.spark;
 
 public class OwnerProfile {
     public String name;
-    public String OwnerGooglePayID;
+    public String Id;
 
-    public OwnerProfile(String name, String ownerGooglePayID) {
+    public OwnerProfile() {
+    }
+
+    public OwnerProfile(String name, String id) {
         this.name = name;
-        OwnerGooglePayID = ownerGooglePayID;
-    }
-
-    public String getOwnerGooglePayID() {
-        return OwnerGooglePayID;
-    }
-
-    public void setOwnerGooglePayID(String ownerGooglePayID) {
-        OwnerGooglePayID = ownerGooglePayID;
+        Id = id;
     }
 
     public String getName() {
@@ -23,5 +18,13 @@ public class OwnerProfile {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 }
