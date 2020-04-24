@@ -1,13 +1,13 @@
 package com.example.spark;
 
 public class AddGoogleIDOfUSer {
-    public String Id;
+    public String id;
 
     public AddGoogleIDOfUSer(){
 
     }
 
     public AddGoogleIDOfUSer(String id) {
-        this.Id = id;
+        this.id = id;
     }
 }

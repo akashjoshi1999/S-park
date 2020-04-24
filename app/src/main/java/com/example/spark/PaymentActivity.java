@@ -60,7 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
                 OwnerProfile ownerProfile = dataSnapshot.getValue(OwnerProfile.class);
                 editTextOwnerName.setText(ownerProfile.getName());
                 OwnerName = ownerProfile.getName();
-                PaymentGooglePayID = ownerProfile.getId();
+                PaymentGooglePayID = ownerProfile.getGid();
             }
 
             @Override
@@ -76,9 +76,9 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
-                PaymentProfile paymentProfile1 = dataSnapshot.child("Id").child("Id").getValue(PaymentProfile.class);
+                //PaymentProfile paymentProfile1 = dataSnapshot.child("googleid").getValue(PaymentProfile.class);
                 UserName = paymentProfile.getName();
-                userUPIID = paymentProfile1.getId();
+               // userUPIID = paymentProfile1.getId();
             }
 
             @Override
@@ -86,6 +86,20 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
+        FirebaseDatabase.getInstance().getReference("AccountDetails")
+            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("googleid")
+            .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
+                    userUPIID = paymentProfile.getId();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         editTextTotalAmount.setText(Integer.toString(Amount));
         textViewPayment.setOnClickListener(new View.OnClickListener() {
             @Override

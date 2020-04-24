@@ -2,14 +2,14 @@ package com.example.spark;
 
 public class OwnerProfile {
     public String name;
-    public String Id;
+    public String gid;
 
     public OwnerProfile() {
     }
 
-    public OwnerProfile(String name, String id) {
+    public OwnerProfile(String name, String gid) {
         this.name = name;
-        Id = id;
+        this.gid = gid;
     }
 
     public String getName() {
@@ -20,11 +20,11 @@ public class OwnerProfile {
         this.name = name;
     }
 
-    public String getId() {
-        return Id;
+    public String getGid() {
+        return gid;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setGid(String gid) {
+        this.gid = gid;
     }
 }

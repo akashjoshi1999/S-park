@@ -56,7 +56,7 @@ public class AddGooglePayActivity extends AppCompatActivity {
             AddID
         );
         FirebaseDatabase.getInstance().getReference("AccountDetails")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Id")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("googleid")
                 .setValue(addGoogleIDOfUSer).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
