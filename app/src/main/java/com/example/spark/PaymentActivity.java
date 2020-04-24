@@ -30,11 +30,11 @@ public class PaymentActivity extends AppCompatActivity {
     private TextView textViewPayment;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-    public String UserName,userUPIID;
+    private String UserName,userUPIID;
     private ProgressDialog progressDialog;
-    public int accept,accept_1;
-    public String PaymentGooglePayID,PaymentName,GOOGLE_PAY_PACKAGE_NAME,OwnerName;
-    public int GOOGLE_PAY_REQUEST_CODE;
+    private int accept,accept_1;
+    private String PaymentGooglePayID,PaymentName,GOOGLE_PAY_PACKAGE_NAME,OwnerName;
+    private int GOOGLE_PAY_REQUEST_CODE;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +76,9 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
-                //PaymentProfile paymentProfile1 = dataSnapshot.child("googleid").getValue(PaymentProfile.class);
+                PaymentProfile paymentProfile1 = dataSnapshot.child("googleid").getValue(PaymentProfile.class);
                 UserName = paymentProfile.getName();
-               // userUPIID = paymentProfile1.getId();
+                userUPIID = paymentProfile1.getId();
             }
 
             @Override
@@ -86,20 +86,20 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
-        FirebaseDatabase.getInstance().getReference("AccountDetails")
-            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("googleid")
-            .addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
-                    userUPIID = paymentProfile.getId();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+//        FirebaseDatabase.getInstance().getReference("AccountDetails")
+//            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("googleid")
+//            .addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
+//                    userUPIID = paymentProfile.getId();
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
         editTextTotalAmount.setText(Integer.toString(Amount));
         textViewPayment.setOnClickListener(new View.OnClickListener() {
             @Override

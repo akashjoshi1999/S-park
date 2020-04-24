@@ -2,15 +2,10 @@ package com.example.spark;
 
 public class PaymentProfile {
     public String name;
-    public String Id;
+    public String id;
 
     public PaymentProfile(){
 
-    }
-
-    public PaymentProfile(String name, String id) {
-        this.name = name;
-        Id = id;
     }
 
     public String getName() {
@@ -22,10 +17,15 @@ public class PaymentProfile {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
+    }
+
+    public PaymentProfile(String name, String id) {
+        this.name = name;
+        this.id = id;
     }
 }
