@@ -1,17 +1,18 @@
 package com.example.spark;
 
 public class UserPayment {
-    public String OwnerName,GoogleApiID;
+    public String ownername, googleid;
     public int amount;
 
-    public UserPayment(){
+    public UserPayment() {
 
     }
 
-
-    public UserPayment(String ownerName, String googleApiID, int amount) {
-        OwnerName = ownerName;
-        GoogleApiID = googleApiID;
+    public UserPayment(String ownername, String googleid, int amount) {
+        this.ownername = ownername;
+        this.googleid = googleid;
         this.amount = amount;
     }
 }
+
+

@@ -36,12 +36,12 @@ public class HistoryUserActivity extends AppCompatActivity {
         list = new ArrayList<PaymentUser>();
 
         databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("history").addValueEventListener(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChild("history")) {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        PaymentUser p = dataSnapshot1.getValue(PaymentUser.class);
+                        PaymentUser p = dataSnapshot1.child("history").getValue(PaymentUser.class);
                         list.add(p);
                     }
                     myAdapterForUser = new MyAdapterForUser(HistoryUserActivity.this, list);

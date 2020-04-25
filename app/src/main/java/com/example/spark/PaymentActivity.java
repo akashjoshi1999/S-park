@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,16 +52,20 @@ public class PaymentActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         final int Amount= bundle.getInt("Amount");
+        progressDialog = new ProgressDialog(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // owner details
                 OwnerProfile ownerProfile = dataSnapshot.getValue(OwnerProfile.class);
                 editTextOwnerName.setText(ownerProfile.getName());
                 OwnerName = ownerProfile.getName();
                 PaymentGooglePayID = ownerProfile.getGid();
+                // PaymentGooglePayID owner gid
+                // OwnerName owner name
             }
 
             @Override
@@ -75,10 +80,13 @@ public class PaymentActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // user details
                 PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
                 PaymentProfile paymentProfile1 = dataSnapshot.child("googleid").getValue(PaymentProfile.class);
                 UserName = paymentProfile.getName();
                 userUPIID = paymentProfile1.getId();
+                // userUPIID user gid
+                // UserName user name
             }
 
             @Override
@@ -86,37 +94,31 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
-//        FirebaseDatabase.getInstance().getReference("AccountDetails")
-//            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("googleid")
-//            .addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    PaymentProfile paymentProfile = dataSnapshot.getValue(PaymentProfile.class);
-//                    userUPIID = paymentProfile.getId();
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
+
         editTextTotalAmount.setText(Integer.toString(Amount));
         final String amount = String.valueOf(Amount);
         textViewPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.v("abc","transaction"+OwnerName+"//"+PaymentGooglePayID+"//"+PaymentName+"//"+amount);
                 PayUsingUPI( OwnerName,PaymentGooglePayID,PaymentName,amount);
                 progressDialog.setMessage("Transaction Pending....");
+                Log.v("abc","progress bar...");
                 progressDialog.show();
+                Log.v("abc","end");
+                // PaymentGooglePayID owner gid
+                // OwnerName owner name
                 UserPayment userPayment = new UserPayment(
                         OwnerName,PaymentGooglePayID,Amount
                 );
+                // userUPIID user gid
+                // UserName user name
                 OwnerPayment ownerPayment = new OwnerPayment(
                         UserName,userUPIID,Amount
                 );
                 FirebaseDatabase.getInstance().getReference("data")
                         .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history")
-                        .setValue(userPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        .setValue(ownerPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
@@ -126,7 +128,7 @@ public class PaymentActivity extends AppCompatActivity {
                 });
                 FirebaseDatabase.getInstance().getReference("AccountDetails")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
-                        .setValue(ownerPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        .setValue(userPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
