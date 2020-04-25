@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class OwnerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -51,16 +52,17 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<ParkingSpot> options =
-                new FirebaseRecyclerOptions.Builder<ParkingSpot>()
-                        .setQuery(databaseReference, ParkingSpot.class)
+        FirebaseRecyclerOptions<Object> options =
+                new FirebaseRecyclerOptions.Builder<Object>()
+                        .setQuery(databaseReference, Object.class)
                         .build();
 
-        FirebaseRecyclerAdapter<ParkingSpot,OwnerHolder> adapter =
-                new FirebaseRecyclerAdapter<ParkingSpot, OwnerHolder>(options) {
+        FirebaseRecyclerAdapter<Object,OwnerHolder> adapter =
+                new FirebaseRecyclerAdapter<Object, OwnerHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull ParkingSpot model) {
-                        String parkingSpot = model.getCar_standing();
+                    protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull Object model) {
+                        //String parkingSpot = model.getCar_standing();
+                        String parkingSpot = ((HashMap<String, String>)model).get("car_standing");
                         if(parkingSpot.equals("Yes")){
                             holder.spot.setBackgroundColor(Color.parseColor("#ff0000"));
                         } else {

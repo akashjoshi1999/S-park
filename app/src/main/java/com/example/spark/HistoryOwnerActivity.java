@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,11 +36,15 @@ public class HistoryOwnerActivity extends AppCompatActivity {
                 .child("history").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                            PaymentOwner p = dataSnapshot1.getValue(PaymentOwner.class);
-                            list.add(p);
+                        if(dataSnapshot.hasChild("history")) {
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                PaymentOwner p = dataSnapshot1.getValue(PaymentOwner.class);
+                                list.add(p);
+                            }
+                            myAdapterForOwner = new MyAdapterForOwner(HistoryOwnerActivity.this, list);
+                        } else {
+                            Toast.makeText(HistoryOwnerActivity.this,"you don`t have any transaction",Toast.LENGTH_LONG).show();
                         }
-                        myAdapterForOwner = new MyAdapterForOwner(HistoryOwnerActivity.this,list);
                     }
 
                     @Override
