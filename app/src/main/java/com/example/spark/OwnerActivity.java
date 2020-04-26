@@ -21,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.protobuf.StringValue;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -42,7 +43,7 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_owner);
         Objects.requireNonNull(getSupportActionBar()).hide();
         databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewNav);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -62,7 +63,7 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
                     @Override
                     protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull Object model) {
                         //String parkingSpot = model.getCar_standing();
-                        String parkingSpot = ((HashMap<String, String>)model).get("car_standing");
+                        String parkingSpot = String.valueOf(((HashMap<String, String>)model).get("car_standing"));
                         if(parkingSpot.equals("Yes")){
                             holder.spot.setBackgroundColor(Color.parseColor("#ff0000"));
                         } else {

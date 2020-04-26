@@ -110,10 +110,10 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.v("abc","transaction"+OwnerName+"//"+PaymentGooglePayID+"//"+PaymentName+"//"+amount);
                 PayUsingUPI( OwnerName,PaymentGooglePayID,PaymentName,amount);
-                progressDialog.setMessage("Transaction Pending....");
-                Log.v("abc","progress bar...");
-                progressDialog.show();
-                Log.v("abc","end");
+//                progressDialog.setMessage("Transaction Pending....");
+//                Log.v("abc","progress bar...");
+//                progressDialog.show();
+//                Log.v("abc","end");
                 // PaymentGooglePayID owner gid
                 // OwnerName owner name
 
@@ -214,7 +214,7 @@ public class PaymentActivity extends AppCompatActivity {
                         UserName,userUPIID,Amount
                 );
                 FirebaseDatabase.getInstance().getReference("data")
-                        .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history")
+                        .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history").push()
                         .setValue(ownerPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -224,7 +224,7 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 });
                 FirebaseDatabase.getInstance().getReference("AccountDetails")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history").push()
                         .setValue(userPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -236,7 +236,7 @@ public class PaymentActivity extends AppCompatActivity {
                 if(accept == accept_1){
                     Toast.makeText(PaymentActivity.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
                     Log.e("UPI", "payment successful: "+approvalRefNo);
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                     Intent intent = new Intent(PaymentActivity.this, carBooking.class);
                     startActivity(intent);
                 }
