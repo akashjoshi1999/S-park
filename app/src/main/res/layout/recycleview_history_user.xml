@@ -15,9 +15,9 @@
         android:textSize="36sp" />
 
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,42 +29,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="To,"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="250dp"
                 android:text="Amount"
                 android:textAlignment="center"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_width="397dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/ownerNameHistory"
-                android:textSize="30sp"
-                android:textAlignment="viewStart"
-                android:layout_marginStart="35dp"/>
 
             <TextView
+                android:id="@+id/ownerNameHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
                 android:text=""
-                android:id="@+id/payMoneyToOwner"
-                android:textSize="30sp"
                 android:textAlignment="viewStart"
-                android:layout_marginStart="230dp"/>
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/payMoneyToOwner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="230dp"
+                android:text=""
+                android:textAlignment="viewStart"
+                android:textSize="20sp" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="507dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:orientation="horizontal">
@@ -74,16 +77,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="UPI ID"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/upiIdOfOwner"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
+                android:layout_width="271dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="10dp"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="20sp"/>
+                android:textSize="15sp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

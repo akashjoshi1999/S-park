@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,21 +33,24 @@ public class HistoryUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history_user);
         Objects.requireNonNull(getSupportActionBar()).hide();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewHistoryUser);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<PaymentUser>();
 
-        databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference("AccountDetails")
+        FirebaseDatabase.getInstance().getReference("AccountDetails")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     String key = dataSnapshot1.getKey();
-                    PaymentUser p = dataSnapshot1.child(key).getValue(PaymentUser.class);
+                    PaymentUser p = dataSnapshot.child(key).getValue(PaymentUser.class);
                     list.add(p);
-                }
-                myAdapterForUser = new MyAdapterForUser(HistoryUserActivity.this, list);
 
+                }
+//                Log.v("abc", list.toString());
+                myAdapterForUser = new MyAdapterForUser(HistoryUserActivity.this, list);
+                recyclerView.setAdapter(myAdapterForUser);
             }
 
             @Override
