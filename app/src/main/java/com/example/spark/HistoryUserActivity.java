@@ -42,17 +42,14 @@ public class HistoryUserActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String key = dataSnapshot1.getKey();
-                    PaymentUser p = dataSnapshot.child(key).getValue(PaymentUser.class);
-                    list.add(p);
-
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        String key = dataSnapshot1.getKey();
+                        PaymentUser p = dataSnapshot.child(key).getValue(PaymentUser.class);
+                        list.add(p);
+                    }
+                    myAdapterForUser = new MyAdapterForUser(HistoryUserActivity.this, list);
+                    recyclerView.setAdapter(myAdapterForUser);
                 }
-//                Log.v("abc", list.toString());
-                myAdapterForUser = new MyAdapterForUser(HistoryUserActivity.this, list);
-                recyclerView.setAdapter(myAdapterForUser);
-            }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
