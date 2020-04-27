@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.protobuf.StringValue;
 
 import java.util.HashMap;
@@ -31,18 +33,15 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
     private RecyclerView recyclerView;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //set up notitle
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //set up full screen
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_owner);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+        navigationView = findViewById(R.id.nav_view_owner);
+        navigationView.setNavigationItemSelectedListener(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewNav);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,17 +52,20 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
+        Query query = FirebaseDatabase.getInstance().getReference("data");
         FirebaseRecyclerOptions<Object> options =
                 new FirebaseRecyclerOptions.Builder<Object>()
-                        .setQuery(databaseReference, Object.class)
+                        .setQuery(query, Object.class)
                         .build();
 
         FirebaseRecyclerAdapter<Object,OwnerHolder> adapter =
                 new FirebaseRecyclerAdapter<Object, OwnerHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull Object model) {
-                        //String parkingSpot = model.getCar_standing();
-                        String parkingSpot = String.valueOf(((HashMap<String, String>)model).get("car_standing"));
+                        String parkingSpot = ((HashMap<String, String>)model).get("car_standing");
+                        Log.v("abc", "ENTERED FUNCTION"+model.toString());
+                        Log.v("abc", "cs: "+parkingSpot);
+
                         if(parkingSpot.equals("Yes")){
                             holder.spot.setBackgroundColor(Color.parseColor("#ff0000"));
                         } else {

@@ -73,7 +73,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull final FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null) {
-                    FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    FirebaseDatabase.getInstance().getReference("AccountDetails")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.hasChild("account")){
@@ -82,6 +84,7 @@ public class Login extends AppCompatActivity {
                                     startActivity(new Intent(getApplicationContext(), MapActivity.class));
                                 }
                                 else {
+                                    //FirebaseDatabase.getInstance().getReference("data").child(FirebaseAuth.getInstance().getCurrentUser()).addValueEventListener()
                                     startActivity(new Intent(getApplicationContext(), OwnerActivity.class));
                                 }
                             }
@@ -183,7 +186,7 @@ public class Login extends AppCompatActivity {
                                 String account1 = dataSnapshot.child("account").getValue(String.class);
                                 //Log.d("","account, owner");
                                 if(account1.equals("Owner")) {
-                                    Toast.makeText(Login.this, "User Authenticated...", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, "Owner Authenticated...", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
                                     Intent intent = new Intent(Login.this, OwnerActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

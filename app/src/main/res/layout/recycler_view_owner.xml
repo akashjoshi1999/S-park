@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="85dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="20dp"
         android:text="@string/parking_spot"
         android:textColor="#ffffff"
@@ -27,7 +27,7 @@
                 android:id="@+id/Owner_Spot"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginStart="150dp"
+                android:layout_marginStart="140dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="#2BFD34"
