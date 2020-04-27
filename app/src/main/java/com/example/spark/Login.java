@@ -3,6 +3,7 @@ package com.example.spark;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,8 +46,10 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private UserProfileChangeRequest profileUpdates;
     private Uri uri;
+    public String email,password;
     public int accept,accept_1;
     private Uri.Builder builder;
+    private SharedPreferences sharedPreferences;
     private final String URI = "https://api.qrserver.com/v1/create-qr-code/?size=150x150";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,9 @@ public class Login extends AppCompatActivity {
         //set up notitle
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        sharedPreferences
+                = getSharedPreferences("MySharedPref",
+                MODE_PRIVATE);
         //set up full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -128,19 +134,47 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        String em = sharedPreferences.getString("email", "");
+        String pw = sharedPreferences.getString("password", "");
+        if(!em.equals("") && !pw.equals("")){
+            loginUser();
+
+        }
+
     }
 
     private void loginUser(){
-        String email = Email.getText().toString().trim();
-        String password = Password.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)){
-            Email.setError("Enter valid email address");
-            return;
+
+        String em = sharedPreferences.getString("email", "");
+        String pw = sharedPreferences.getString("password", "");
+        Log.v("xxx","EMAIL"+ em);
+        Log.v("xxx","PASSWORD"+pw);
+
+        if(em.equals("") || pw.equals("")){
+
+
+
+// Once the changes have been made,
+// we need to commit to apply those changes made,
+// otherwise, it will throw an error
+
+            email = Email.getText().toString().trim();
+            password = Password.getText().toString().trim();
+
+            if (TextUtils.isEmpty(email)) {
+                Email.setError("Enter valid email address");
+                return;
+            }
+            if (TextUtils.isEmpty(password)) {
+                Password.setError("Enter valid password");
+                return;
+            }
         }
-        if(TextUtils.isEmpty(password)){
-            Password.setError("Enter valid password");
-            return;
+        else{
+            email = em;
+            password = pw;
         }
 
         progressDialog.setMessage("Authenticating User ...");
@@ -163,6 +197,18 @@ public class Login extends AppCompatActivity {
                              //Log.d("","account, user");
                              Toast.makeText(Login.this,"User Authenticated...",Toast.LENGTH_SHORT).show();
                              progressDialog.dismiss();
+
+                             SharedPreferences.Editor myEdit
+                                     = sharedPreferences.edit();
+
+                             myEdit.putString(
+                                     "email",email);
+                             myEdit.putString(
+                                     "password",password);
+
+                             myEdit.commit();
+
+
                              Intent intent = new Intent(Login.this, MapActivity.class);
                              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                              //Log.v(TAG,"User id " + firebaseAuth.getCurrentUser().getUid());
@@ -188,6 +234,17 @@ public class Login extends AppCompatActivity {
                                 if(account1.equals("Owner")) {
                                     Toast.makeText(Login.this, "Owner Authenticated...", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
+
+
+                                    SharedPreferences.Editor myEdit
+                                            = sharedPreferences.edit();
+
+                                    myEdit.putString(
+                                            "email",email);
+                                    myEdit.putString(
+                                            "password",password);
+
+                                    myEdit.commit();
                                     Intent intent = new Intent(Login.this, OwnerActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     Log.v(TAG, "User id " + firebaseAuth.getCurrentUser().getUid());

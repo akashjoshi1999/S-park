@@ -1,6 +1,7 @@
 package com.example.spark;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,11 @@ public class MyAdapterForOwner extends RecyclerView.Adapter<MyAdapterForOwner.My
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapterForOwner.MyViewHolder holder, int position) {
-        holder.name.setText(paymentOwners.get(position).getName());
-        holder.UpiID.setText(paymentOwners.get(position).getUpiID());
-        holder.amount.setText(paymentOwners.get(position).getAmount());
+        int x = paymentOwners.get(position).getAmount();
+        String amt = Integer.toString(x);
+        holder.name.setText(paymentOwners.get(position).getUname());
+        holder.UpiID.setText(paymentOwners.get(position).getGoogleid());
+        holder.amount.setText(amt);
     }
 
     @Override
@@ -43,6 +46,7 @@ public class MyAdapterForOwner extends RecyclerView.Adapter<MyAdapterForOwner.My
         TextView name,UpiID,amount;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            Log.v("abc", "CONSTRUCTOR CALL");
             name = (TextView) itemView.findViewById(R.id.userNameHistory);
             UpiID =(TextView) itemView.findViewById(R.id.upiIdOfUser);
             amount =(TextView) itemView.findViewById(R.id.paidMoneyByUser);

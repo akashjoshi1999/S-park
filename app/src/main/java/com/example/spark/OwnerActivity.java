@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -94,6 +95,18 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
                 finish();
                 break;
             case R.id.nav_logout:
+                SharedPreferences sharedPreferences
+                        = getSharedPreferences("MySharedPref",
+                        MODE_PRIVATE);
+                SharedPreferences.Editor myEdit
+                        = sharedPreferences.edit();
+
+                myEdit.remove("email");
+                myEdit.remove("password");
+
+                myEdit.commit();
+
+
                 firebaseAuth = FirebaseAuth.getInstance();
                 if (firebaseAuth.getCurrentUser() != null) {
                     firebaseAuth.signOut();

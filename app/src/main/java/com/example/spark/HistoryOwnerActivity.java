@@ -2,12 +2,16 @@ package com.example.spark;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Adapter;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,25 +30,28 @@ public class HistoryOwnerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_owner);
+        setContentView(R.layout.activity_history_user);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewHistoryOwner);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewHistoryUser);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
         list = new ArrayList<PaymentOwner>();
 
-        databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference("AccountDetails").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3")
-                .child("history").addValueEventListener(new ValueEventListener() {
+
+        FirebaseDatabase.getInstance().getReference("AccountDetails")
+                .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history")
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.hasChild("history")) {
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                PaymentOwner p = dataSnapshot1.getValue(PaymentOwner.class);
+                                String key = dataSnapshot1.getKey();
+                                PaymentOwner p = dataSnapshot.child(key).getValue(PaymentOwner.class);
                                 list.add(p);
                             }
                             myAdapterForOwner = new MyAdapterForOwner(HistoryOwnerActivity.this, list);
-                        } else {
-                            Toast.makeText(HistoryOwnerActivity.this,"you don`t have any transaction",Toast.LENGTH_LONG).show();
-                        }
+                        recyclerView.setAdapter(myAdapterForOwner);
+                        Log.v("abc","adapter");
                     }
 
                     @Override

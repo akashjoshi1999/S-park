@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -366,6 +367,16 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                 finish();
                 break;
             case R.id.nav_logout:
+                SharedPreferences sharedPreferences
+                        = getSharedPreferences("MySharedPref",
+                        MODE_PRIVATE);
+                SharedPreferences.Editor myEdit
+                        = sharedPreferences.edit();
+
+                myEdit.remove("email");
+                myEdit.remove("password");
+
+                myEdit.commit();
                 auth = FirebaseAuth.getInstance();
                 if (auth.getCurrentUser() != null) {
                     auth.signOut();
