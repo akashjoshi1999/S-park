@@ -24,16 +24,19 @@ public class MyAdapterForOwner extends RecyclerView.Adapter<MyAdapterForOwner.My
 
     @NonNull
     @Override
-    public MyAdapterForOwner.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyAdapterForOwner.MyViewHolder(LayoutInflater.from(context).inflate(R.layout.recycleview_history_owner,parent,false));
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.recycleview_history_owner,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyAdapterForOwner.MyViewHolder holder, int position) {
-        int x = paymentOwners.get(position).getAmount();
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        int x = paymentOwners.get(position).getAmount()+11;
         String amt = Integer.toString(x);
-        holder.name.setText(paymentOwners.get(position).getUname());
-        holder.UpiID.setText(paymentOwners.get(position).getGoogleid());
+//        holder.name.setText(paymentOwners.get(position).getUname());
+//        holder.UpiID.setText(paymentOwners.get(position).getGoogleid());
+//        holder.amount.setText(amt);
+        holder.name.setText("hello");
+        holder.UpiID.setText("hello");
         holder.amount.setText(amt);
     }
 

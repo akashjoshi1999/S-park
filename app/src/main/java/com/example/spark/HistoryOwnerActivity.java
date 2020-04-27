@@ -30,11 +30,11 @@ public class HistoryOwnerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_user);
+        setContentView(R.layout.activity_history_owner);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewHistoryUser);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewHistoryOwner);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
 
         list = new ArrayList<PaymentOwner>();
 

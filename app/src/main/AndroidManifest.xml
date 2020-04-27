@@ -22,7 +22,8 @@
             android:parentActivityName=".MapActivity"></activity>
         <activity android:name=".PaymentActivity" />
         <activity android:name=".HistoryOwnerActivity" />
-        <activity android:name=".HistoryUserActivity"/>
+        <activity android:name=".HistoryUserActivity"
+            android:parentActivityName=".MapActivity"/>
         <activity android:name=".carBookingBytime" />
         <activity android:name=".carBooking" />
         <activity android:name=".VehicleBooking" />
