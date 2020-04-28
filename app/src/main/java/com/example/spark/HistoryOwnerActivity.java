@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
@@ -45,5 +47,12 @@ public class HistoryOwnerActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
          });
+    }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Log.v("a12", "BACK");
+        Intent i = new Intent(HistoryOwnerActivity.this, OwnerActivity.class);
+        startActivity(i);
     }
 }

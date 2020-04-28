@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -77,5 +78,12 @@ public class VehicleBooking extends AppCompatActivity {
                 Toast.makeText(VehicleBooking.this,"Error",Toast.LENGTH_LONG).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Log.v("a12", "BACK");
+        Intent i = new Intent(VehicleBooking.this, MapActivity.class);
+        startActivity(i);
     }
 }

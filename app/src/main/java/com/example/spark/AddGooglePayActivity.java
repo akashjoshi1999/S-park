@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -66,5 +67,12 @@ public class AddGooglePayActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Log.v("a12", "BACK");
+        Intent i = new Intent(AddGooglePayActivity.this, MapActivity.class);
+        startActivity(i);
     }
 }
