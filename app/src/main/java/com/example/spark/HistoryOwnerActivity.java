@@ -39,9 +39,10 @@ public class HistoryOwnerActivity extends AppCompatActivity {
                         String key = dataSnapshot1.getKey();
                         PaymentOwner p = dataSnapshot.child(key).getValue(PaymentOwner.class);
                         list.add(p);
+                        myAdapterForOwner = new MyAdapterForOwner(HistoryOwnerActivity.this, list);
+                        recyclerView.setAdapter(myAdapterForOwner);
                     }
-                    myAdapterForOwner = new MyAdapterForOwner(HistoryOwnerActivity.this, list);
-                recyclerView.setAdapter(myAdapterForOwner);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

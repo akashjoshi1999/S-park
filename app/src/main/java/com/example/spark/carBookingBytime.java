@@ -24,7 +24,7 @@ public class carBookingBytime extends AppCompatActivity {
     private TextView textViewStartTime,textViewEndTime,TextViewStartDate,TextViewEndDate,textViewFinalBook;
     DatePickerDialog.OnDateSetListener setListener;
     TimePickerDialog.OnTimeSetListener onTimeSetListener;
-    public String date1,date2,time1,time2;
+    public String date1,date2,time1,time2,date3,date4;
     String AmPm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +96,9 @@ public class carBookingBytime extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month+1;
                         date1= month+"/"+ day +"/" +year;
+                        date3= day+"/"+ month +"/" +year;
                         Log.v("abc","date1:"+date1);
-                        TextViewStartDate.setText(date1);
+                        TextViewStartDate.setText(date3);
                     }
                 },year,month,day);
                 datePickerDialog.show();
@@ -113,8 +114,9 @@ public class carBookingBytime extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month+1;
                         date2= month+"/"+ day +"/" +year;
+                        date4 =day+"/"+ month +"/" +year;
                         Log.v("abc","date2:"+date2);
-                        TextViewEndDate.setText(date2);
+                        TextViewEndDate.setText(date4);
                     }
                 },year,month,day);
                 datePickerDialog.show();
