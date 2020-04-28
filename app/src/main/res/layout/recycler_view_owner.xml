@@ -15,30 +15,31 @@
         android:textSize="36sp" />
 
     <LinearLayout
-        android:layout_width="453dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="45dp"
             android:layout_marginTop="10dp"
             android:background="#2BFD34"
             android:text="" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:textSize="20sp"
             android:layout_marginStart="20dp"
-            android:text="Open" />
+            android:layout_marginTop="15dp"
+            android:text="Open"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="10dp"
             android:background="#E60606"
             android:text="" />
@@ -46,11 +47,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:textSize="20sp"
             android:layout_marginStart="20dp"
-            android:text="Close" />
+            android:layout_marginTop="15dp"
+            android:text="Close"
+            android:textSize="20sp" />
     </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
