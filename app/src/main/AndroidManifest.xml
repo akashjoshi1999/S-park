@@ -21,7 +21,8 @@
         <activity android:name=".AddGooglePayActivity"
             android:parentActivityName=".MapActivity"></activity>
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".HistoryOwnerActivity" />
+        <activity android:name=".HistoryOwnerActivity"
+            android:parentActivityName=".OwnerActivity"/>
         <activity android:name=".HistoryUserActivity"
             android:parentActivityName=".MapActivity"/>
         <activity android:name=".carBookingBytime" />
