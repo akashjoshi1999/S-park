@@ -149,8 +149,8 @@ public class carBookingBytime extends AppCompatActivity {
                     String bookMinuteDiff = crunchifyFormatter.format(diffmin);
                     Intent intent = new Intent(carBookingBytime.this, PaymentActivity.class);
                     Bundle bundle = new Bundle();
-                    Log.v("abc","price:"+((diffhours * 60) + diffmin));
-                    bundle.putInt("Amount",((diffhours * 60) + diffmin));
+                    Log.v("abc","price:"+((diffhours * 60) + diffmin)*2);
+                    bundle.putInt("Amount",((diffhours * 60) + diffmin)*2);
                     intent.putExtras(bundle);
                     startActivity(intent);
 

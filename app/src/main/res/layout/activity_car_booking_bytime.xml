@@ -16,7 +16,7 @@
         android:textAlignment="center"
 
         android:textSize="24sp"
-
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.761"
@@ -33,6 +33,7 @@
         android:text="Set"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:background="@color/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewSetEndDate"
         app:layout_constraintHorizontal_bias="0.32"
@@ -46,7 +47,7 @@
         android:layout_width="98dp"
         android:layout_height="38dp"
         android:text="Set"
-
+        android:background="@color/ic_launcher_background"
         android:textAlignment="center"
 
         android:textSize="24sp"
@@ -65,6 +66,7 @@
         android:layout_width="98dp"
         android:layout_height="38dp"
         android:text="Set"
+        android:background="@color/ic_launcher_background"
         android:textAlignment="center"
         android:textSize="24sp"
 
@@ -98,9 +100,8 @@
         android:layout_height="41dp"
         android:text="Start Date"
         android:textSize="30sp"
-
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.219"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,6 +131,8 @@
         android:layout_height="wrap_content"
         android:text="BOOK THE SPOT"
         android:textSize="36sp"
+        android:background="#BB1919"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -159,9 +162,9 @@
         android:layout_marginStart="132dp"
         android:layout_marginEnd="135dp"
         android:layout_marginBottom="92dp"
-
+        android:textColor="#ffffff"
         android:text="BOOK"
-
+        android:background="#BB1919"
         android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -177,11 +180,11 @@
         android:id="@+id/textView21"
         android:layout_width="193dp"
         android:layout_height="27dp"
-        android:text="1 Minute = 1 Rupees"
+        android:text="1 Minute = 2 Rupees"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-
+        android:background="@color/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
