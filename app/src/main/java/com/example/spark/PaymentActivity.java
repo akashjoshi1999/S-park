@@ -215,7 +215,7 @@ public class PaymentActivity extends AppCompatActivity {
                         UserName,userUPIID,Amount
                 );
                 FirebaseDatabase.getInstance().getReference("data")
-                        .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history").push()
+                        .child(id).child("history").push()
                         .setValue(ownerPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

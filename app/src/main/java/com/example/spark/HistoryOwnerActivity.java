@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +33,7 @@ public class HistoryOwnerActivity extends AppCompatActivity {
         list = new ArrayList<PaymentOwner>();
 
         FirebaseDatabase.getInstance().getReference("data")
-            .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history")
+            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
             .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
