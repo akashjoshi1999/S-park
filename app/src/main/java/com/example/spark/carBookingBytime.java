@@ -26,12 +26,15 @@ public class carBookingBytime extends AppCompatActivity {
     TimePickerDialog.OnTimeSetListener onTimeSetListener;
     public String date1,date2,time1,time2,date3,date4;
     String AmPm;
+    public String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_booking_bytime);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getString("id");
         textViewStartTime = (TextView) findViewById(R.id.textViewSetStartTime);
         textViewEndTime = (TextView) findViewById(R.id.textViewSetEndTime);
         TextViewStartDate = (TextView) findViewById(R.id.textViewSetStartDate);
@@ -153,6 +156,7 @@ public class carBookingBytime extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     Log.v("abc","price:"+((diffhours * 60) + diffmin)*2);
                     bundle.putInt("Amount",((diffhours * 60) + diffmin)*2);
+                    bundle.putString("id",id);
                     intent.putExtras(bundle);
                     startActivity(intent);
 

@@ -34,9 +34,12 @@ public class carBooking extends AppCompatActivity {
     public List<BookTheVehicle> list;
     private DatabaseReference databaseReference;
     private MyBookAdapter myBookAdapter;
+    public String id;
     @Override
     protected void onStart() {
         super.onStart();
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getString("id");
 //        FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -50,7 +53,7 @@ public class carBooking extends AppCompatActivity {
 //
 //            }
 //        });
-        Query query = FirebaseDatabase.getInstance().getReference("data");
+        Query query = FirebaseDatabase.getInstance().getReference("data").child(id);
         //databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 //        databaseReference = FirebaseDatabase.getInst;
 
@@ -79,7 +82,11 @@ public class carBooking extends AppCompatActivity {
                     holder.textViewBookSpot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startActivity(new Intent(getApplicationContext(),carBookingBytime.class));
+                            Intent intent = new Intent(carBooking.this, carBookingBytime.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id",id);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
                     });
                 }

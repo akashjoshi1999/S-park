@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,7 @@ public class VehicleBooking extends AppCompatActivity {
     private TextView textViewimg1;
     //TextViewimg2,TextViewimg3;
     private DatabaseReference databaseReference;
+    public String id;
     private FirebaseFirestore firebaseFirestore= FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +47,19 @@ public class VehicleBooking extends AppCompatActivity {
         textViewimg1 = (TextView) findViewById(R.id.img1);
 //        TextViewimg2 = (TextView) findViewById(R.id.img2);
 //        TextViewimg3 = (TextView) findViewById(R.id.img3);
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getString("id");
+        databaseReference = FirebaseDatabase.getInstance().getReference("data").child(id);
 
 
         textBoooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),carBooking.class));
+                Intent intent = new Intent(VehicleBooking.this, carBooking.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",id);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

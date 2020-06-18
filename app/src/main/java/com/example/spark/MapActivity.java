@@ -89,10 +89,10 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     private final float DEFAULT_ZOOM = 18;
     private GoogleMap mMap;
     private FirebaseAuth auth;
-    public LatLng bvm;
+    public LatLng bvm,gitamandir;
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
-    private Marker Mymarker;
+    private Marker Mymarker,AnothorMarker;
     private ImageView imageViewReset;
 
     @Override
@@ -346,6 +346,31 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
                     }
                 });
 
+        FirebaseDatabase.getInstance().getReference("data").child("i2xJSbT07fc8dvA6hJ4XbfRnX1J2").
+                addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        boolean x = dataSnapshot.hasChildren();
+//                        x = dataSnapshot.hasChild("lat");
+                        Log.d("DBG", dataSnapshot.toString());
+                        double Lat_1 = dataSnapshot.child("lat").getValue(Double.class);
+                        double Lng_2 = dataSnapshot.child("lng").getValue(Double.class);
+                        gitamandir = new LatLng(Lat_1, Lng_2);
+
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gitamandir, 8.5f));
+                        AnothorMarker = mMap.addMarker(new MarkerOptions()
+                                .position(gitamandir)
+                                .title("")
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_car_icon)));
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
 
     }
 
@@ -396,6 +421,15 @@ public class MapActivity extends FragmentActivity implements NavigationView.OnNa
     public boolean onMarkerClick(Marker marker) {
         if (marker.equals(Mymarker)) {
             Intent intent = new Intent(MapActivity.this, VehicleBooking.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("id","QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+            intent.putExtras(bundle);
+            startActivity(intent);
+        } else if (marker.equals(AnothorMarker)) {
+            Intent intent = new Intent(MapActivity.this, VehicleBooking.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("id","i2xJSbT07fc8dvA6hJ4XbfRnX1J2");
+            intent.putExtras(bundle);
             startActivity(intent);
         }
         return false;

@@ -43,6 +43,7 @@ public class PaymentActivity extends AppCompatActivity {
     private int GOOGLE_PAY_REQUEST_CODE;
     final int UPI_PAYMENT = 0;
     public int Amount;
+    public String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +53,17 @@ public class PaymentActivity extends AppCompatActivity {
         GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
         GOOGLE_PAY_REQUEST_CODE = 123;
 
-
         editTextOwnerName = (EditText) findViewById(R.id.editTextOwnerName);
         editTextTotalAmount = (EditText) findViewById(R.id.editTextAmount);
         textViewPayment = (TextView) findViewById(R.id.textViewPaymentButton);
         PaymentName = "Parking Spot";
 
         Bundle bundle = getIntent().getExtras();
+        id = bundle.getString("id");
         Amount= bundle.getInt("Amount");
         progressDialog = new ProgressDialog(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
+        final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child(id);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
