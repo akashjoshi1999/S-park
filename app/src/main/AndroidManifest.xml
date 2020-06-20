@@ -5,10 +5,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -18,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddGooglePayActivity"/>
+        <activity android:name=".AddParkingSpotActivity"></activity>
+        <activity android:name=".AddGooglePayActivity" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".HistoryOwnerActivity"/>
-        <activity android:name=".HistoryUserActivity"/>
+        <activity android:name=".HistoryOwnerActivity" />
+        <activity android:name=".HistoryUserActivity" />
         <activity android:name=".carBookingBytime" />
         <activity android:name=".carBooking" />
         <activity android:name=".VehicleBooking" />

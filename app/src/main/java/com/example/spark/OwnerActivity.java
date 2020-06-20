@@ -90,6 +90,10 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.parking_spot:
+                startActivity(new Intent(getApplicationContext(), AddParkingSpotActivity.class));
+                finish();
+                break;
             case R.id.nav_history:
                 startActivity(new Intent(getApplicationContext(), HistoryOwnerActivity.class));
                 finish();
