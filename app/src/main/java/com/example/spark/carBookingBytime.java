@@ -155,6 +155,7 @@ public class carBookingBytime extends AppCompatActivity {
                     Intent intent = new Intent(carBookingBytime.this, PaymentActivity.class);
                     Bundle bundle = new Bundle();
                     Log.v("abc","price:"+((diffhours * 60) + diffmin)*2);
+                    bundle.putInt("time",diffmin);
                     bundle.putInt("Amount",((diffhours * 60) + diffmin)*2);
                     bundle.putString("id",id);
                     intent.putExtras(bundle);

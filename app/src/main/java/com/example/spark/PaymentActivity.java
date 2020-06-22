@@ -32,17 +32,17 @@ import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private EditText editTextOwnerName,editTextTotalAmount;
+    private EditText editTextOwnerName,editTextTotalAmount,editTextExtraMinute,editTextExtraTotal,editTextTotal;
     private TextView textViewPayment;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private String UserName,userUPIID;
     private ProgressDialog progressDialog;
-    private int accept,accept_1;
+    private int accept,accept_1,firebaseTime;
     private String PaymentGooglePayID,PaymentName,GOOGLE_PAY_PACKAGE_NAME,OwnerName;
     private int GOOGLE_PAY_REQUEST_CODE;
     final int UPI_PAYMENT = 0;
-    public int Amount;
+    public int Amount,time,minute,extraTime,extraTotal,finalTotal;
     public String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,15 @@ public class PaymentActivity extends AppCompatActivity {
         editTextOwnerName = (EditText) findViewById(R.id.editTextOwnerName);
         editTextTotalAmount = (EditText) findViewById(R.id.editTextAmount);
         textViewPayment = (TextView) findViewById(R.id.textViewPaymentButton);
+        editTextExtraMinute = (EditText) findViewById(R.id.editTextExtraMinute);
+        editTextExtraTotal = (EditText) findViewById(R.id.editTextExtraTotal);
+        editTextTotal = (EditText) findViewById(R.id.editTextTotal);
         PaymentName = "Parking Spot";
 
         Bundle bundle = getIntent().getExtras();
         id = bundle.getString("id");
         Amount= bundle.getInt("Amount");
+        time = bundle.getInt("time");
         progressDialog = new ProgressDialog(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child(id);
@@ -73,6 +77,13 @@ public class PaymentActivity extends AppCompatActivity {
                 editTextOwnerName.setText(ownerProfile.getName());
                 OwnerName = ownerProfile.getName();
                 PaymentGooglePayID = ownerProfile.getGid();
+                firebaseTime = ownerProfile.getTime();
+                minute = firebaseTime/60;
+                extraTime = minute - time;
+                extraTotal=extraTime*2;
+                editTextExtraMinute.setText(extraTime);
+                editTextExtraTotal.setText(extraTotal);
+
                 // PaymentGooglePayID owner gid
                 // OwnerName owner name
             }
@@ -103,9 +114,9 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
-
-        editTextTotalAmount.setText(Integer.toString(Amount));
-        final String amount = String.valueOf(Amount);
+        finalTotal = Amount + extraTotal;
+        editTextTotalAmount.setText(Integer.toString(finalTotal));
+        final String amount = String.valueOf(finalTotal);
         textViewPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
