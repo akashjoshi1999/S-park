@@ -66,7 +66,9 @@ public class carBooking extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<Object, bookViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull Object model) {
-                String parkingSpot = ((HashMap<String, String>)model).get("car_standing");
+
+                String parkingSpot = ((HashMap<String, String>)model).get("spot");
+                Log.v("axx", parkingSpot);
                 Log.v("abc", "ENTERED FUNCTION"+model.toString());
                 Log.v("abc", "cs: "+parkingSpot);
 
@@ -100,6 +102,7 @@ public class carBooking extends AppCompatActivity {
         };
         //Log.w("fd","gdfghhb");
         recyclerView.setAdapter(adapter);
+        adapter.getItem();
         adapter.startListening();
     }
 
