@@ -38,8 +38,6 @@ public class carBooking extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Bundle bundle = getIntent().getExtras();
-        id = bundle.getString("id");
 //        FirebaseDatabase.getInstance().getReference("AccountDetails").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -53,7 +51,7 @@ public class carBooking extends AppCompatActivity {
 //
 //            }
 //        });
-        Query query = FirebaseDatabase.getInstance().getReference("data").child(id);
+        Query query = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("car_standing");
         //databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 //        databaseReference = FirebaseDatabase.getInst;
 

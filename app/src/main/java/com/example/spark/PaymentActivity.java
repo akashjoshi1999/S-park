@@ -67,7 +67,7 @@ public class PaymentActivity extends AppCompatActivity {
         time = bundle.getInt("time");
         progressDialog = new ProgressDialog(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child(id);
+        final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("car_standing");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -226,7 +226,7 @@ public class PaymentActivity extends AppCompatActivity {
                         UserName,userUPIID,Amount
                 );
                 FirebaseDatabase.getInstance().getReference("data")
-                        .child(id).child("history").push()
+                        .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history").push()
                         .setValue(ownerPayment).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

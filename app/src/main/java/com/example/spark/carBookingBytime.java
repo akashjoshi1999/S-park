@@ -33,8 +33,7 @@ public class carBookingBytime extends AppCompatActivity {
         setContentView(R.layout.activity_car_booking_bytime);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        Bundle bundle = getIntent().getExtras();
-        id = bundle.getString("id");
+
         textViewStartTime = (TextView) findViewById(R.id.textViewSetStartTime);
         textViewEndTime = (TextView) findViewById(R.id.textViewSetEndTime);
         TextViewStartDate = (TextView) findViewById(R.id.textViewSetStartDate);
@@ -157,7 +156,6 @@ public class carBookingBytime extends AppCompatActivity {
                     Log.v("abc","price:"+((diffhours * 60) + diffmin)*2);
                     bundle.putInt("time",diffmin);
                     bundle.putInt("Amount",((diffhours * 60) + diffmin)*2);
-                    bundle.putString("id",id);
                     intent.putExtras(bundle);
                     startActivity(intent);
 

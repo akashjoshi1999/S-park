@@ -47,18 +47,13 @@ public class VehicleBooking extends AppCompatActivity {
         textViewimg1 = (TextView) findViewById(R.id.img1);
 //        TextViewimg2 = (TextView) findViewById(R.id.img2);
 //        TextViewimg3 = (TextView) findViewById(R.id.img3);
-        Bundle bundle = getIntent().getExtras();
-        id = bundle.getString("id");
-        databaseReference = FirebaseDatabase.getInstance().getReference("data").child(id);
+        databaseReference = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 
 
         textBoooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VehicleBooking.this, carBooking.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id",id);
-                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
