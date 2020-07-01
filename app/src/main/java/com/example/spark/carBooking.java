@@ -2,6 +2,7 @@ package com.example.spark;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +34,7 @@ public class carBooking extends AppCompatActivity {
     private RecyclerView recyclerView;
     public List<BookTheVehicle> list;
     private DatabaseReference databaseReference;
-    private MyBookAdapter myBookAdapter;
+    //private MyBookAdapter myBookAdapter;
     public String id;
     @Override
     protected void onStart() {
@@ -57,23 +58,23 @@ public class carBooking extends AppCompatActivity {
 
 
 
-        FirebaseRecyclerOptions<Object> options =
-                new FirebaseRecyclerOptions.Builder<Object>()
-                .setQuery(query, Object.class)
+        FirebaseRecyclerOptions<BookTheVehicle> options =
+                new FirebaseRecyclerOptions.Builder<BookTheVehicle>()
+                .setQuery(query, BookTheVehicle.class)
                 .build();
 
-        FirebaseRecyclerAdapter<Object,bookViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Object, bookViewHolder>(options) {
+        FirebaseRecyclerAdapter<BookTheVehicle,bookViewHolder> adapter =
+                new FirebaseRecyclerAdapter<BookTheVehicle, bookViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull Object model) {
-
-                String parkingSpot = ((HashMap<String, String>)model).get("spot");
-                Log.v("axx", parkingSpot);
-                Log.v("abc", "ENTERED FUNCTION"+model.toString());
-                Log.v("abc", "cs: "+parkingSpot);
+            protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull BookTheVehicle model) {
+                String spot = String.valueOf(model.getSpot());
+//                String parkingSpot = ((HashMap<String, String>)model).get("spot");
+//                Log.v("axx", parkingSpot);
+//                Log.v("abc", "ENTERED FUNCTION"+model.toString());
+//                Log.v("abc", "cs: "+parkingSpot);
 
                 //String parkingSpot = ((ParkingSpot)model).getCar_standing();
-                if(parkingSpot.equals("Yes")){
+                if(spot.equals("Yes")){
                     holder.textViewChangeSpot.setBackgroundColor(Color.parseColor("#ff0000"));
                     holder.textViewBookSpot.setEnabled(false);
                 } else {
@@ -101,8 +102,9 @@ public class carBooking extends AppCompatActivity {
             }
         };
         //Log.w("fd","gdfghhb");
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
-        adapter.getItem();
         adapter.startListening();
     }
 
