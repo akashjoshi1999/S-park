@@ -84,8 +84,9 @@ public class carBooking extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(carBooking.this, carBookingBytime.class);
+                            int position = (int) v.getTag();
                             Bundle bundle = new Bundle();
-                            bundle.putString("id",id);
+                            bundle.putInt("position",position);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }

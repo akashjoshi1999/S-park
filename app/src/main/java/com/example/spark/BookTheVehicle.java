@@ -3,14 +3,14 @@ package com.example.spark;
 public class BookTheVehicle {
 
     //private String spotBook;
-    public String spot,time;
+    public String spot;
 
     public BookTheVehicle() {
     }
 
-    public BookTheVehicle(String spot, String time) {
+    public BookTheVehicle(String spot) {
         this.spot = spot;
-        this.time = time;
+
     }
 
     public String getSpot() {
@@ -21,11 +21,4 @@ public class BookTheVehicle {
         this.spot = spot;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 }

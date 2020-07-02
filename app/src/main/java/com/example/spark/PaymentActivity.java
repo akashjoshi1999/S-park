@@ -44,6 +44,7 @@ public class PaymentActivity extends AppCompatActivity {
     final int UPI_PAYMENT = 0;
     public int Amount,time,minute,extraTime,extraTotal,finalTotal;
     public String id;
+    public int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +66,13 @@ public class PaymentActivity extends AppCompatActivity {
         id = bundle.getString("id");
         Amount= bundle.getInt("Amount");
         time = bundle.getInt("time");
+        position = bundle.getInt("position");
         progressDialog = new ProgressDialog(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("car_standing");
+        final DatabaseReference databaseReference = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("car_standing").child(String.valueOf(position));
+        final DatabaseReference databaseReference2 = firebaseDatabase.getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // owner details
@@ -77,12 +80,7 @@ public class PaymentActivity extends AppCompatActivity {
                 editTextOwnerName.setText(ownerProfile.getName());
                 OwnerName = ownerProfile.getName();
                 PaymentGooglePayID = ownerProfile.getGid();
-                firebaseTime = ownerProfile.getTime();
-                minute = firebaseTime/60;
-                extraTime = minute - time;
-                extraTotal=extraTime*2;
-                editTextExtraMinute.setText(extraTime);
-                editTextExtraTotal.setText(extraTotal);
+
 
                 // PaymentGooglePayID owner gid
                 // OwnerName owner name
@@ -93,7 +91,23 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                getTimeForPayment getTimeForPayment = dataSnapshot.getValue(com.example.spark.getTimeForPayment.class);
+                firebaseTime = getTimeForPayment.getTime();
+                minute = firebaseTime/60;
+                extraTime = minute - time;
+                extraTotal=extraTime*2;
+                editTextExtraMinute.setText(extraTime);
+                editTextExtraTotal.setText(extraTotal);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference("AccountDetails")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

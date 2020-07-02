@@ -3,7 +3,11 @@ package com.example.spark;
 public class OwnerProfile {
     public String name;
     public String gid;
-    public int time;
+
+    public OwnerProfile(String name, String gid) {
+        this.name = name;
+        this.gid = gid;
+    }
 
     public OwnerProfile() {
     }
@@ -22,13 +26,5 @@ public class OwnerProfile {
 
     public void setGid(String gid) {
         this.gid = gid;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
     }
 }
