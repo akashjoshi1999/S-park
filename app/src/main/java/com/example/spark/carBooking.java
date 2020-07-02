@@ -102,8 +102,8 @@ public class carBooking extends AppCompatActivity {
             }
         };
         //Log.w("fd","gdfghhb");
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
-        recyclerView.setLayoutManager(gridLayoutManager);
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+//        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
