@@ -54,20 +54,20 @@ public class OwnerActivity extends AppCompatActivity implements NavigationView.O
         super.onStart();
 
         Query query = FirebaseDatabase.getInstance().getReference("data").child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("car_standing");
-        FirebaseRecyclerOptions<Object> options =
-                new FirebaseRecyclerOptions.Builder<Object>()
-                        .setQuery(query, Object.class)
+        FirebaseRecyclerOptions<BookTheVehicle> options =
+                new FirebaseRecyclerOptions.Builder<BookTheVehicle>()
+                        .setQuery(query, BookTheVehicle.class)
                         .build();
 
-        FirebaseRecyclerAdapter<Object,OwnerHolder> adapter =
-                new FirebaseRecyclerAdapter<Object, OwnerHolder>(options) {
+        FirebaseRecyclerAdapter<BookTheVehicle,OwnerHolder> adapter =
+                new FirebaseRecyclerAdapter<BookTheVehicle, OwnerHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull Object model) {
-                        String parkingSpot = ((HashMap<String, String>)model).get("car_standing");
-                        Log.v("abc", "ENTERED FUNCTION"+model.toString());
-                        Log.v("abc", "cs: "+parkingSpot);
+                    protected void onBindViewHolder(@NonNull OwnerHolder holder, int position, @NonNull BookTheVehicle model) {
+                        String spot = String.valueOf(model.getSpot());
+//                        Log.v("abc", "ENTERED FUNCTION"+model.toString());
+//                        Log.v("abc", "cs: "+parkingSpot);
 
-                        if(parkingSpot.equals("Yes")){
+                        if(spot.equals("Yes")){
                             holder.spot.setBackgroundColor(Color.parseColor("#ff0000"));
                         } else {
                             holder.spot.setBackgroundColor(Color.parseColor("#00ff00"));

@@ -84,7 +84,13 @@ public class carBooking extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(carBooking.this, carBookingBytime.class);
-                            int position = (int) v.getTag();
+                            View view = v;
+                            View parent = (View) v.getParent();
+                            while (!(parent instanceof RecyclerView)){
+                                view=parent;
+                                parent = (View) parent.getParent();
+                            }
+                            int position = recyclerView.getChildAdapterPosition(view);
                             Bundle bundle = new Bundle();
                             bundle.putInt("position",position);
                             intent.putExtras(bundle);
