@@ -94,7 +94,7 @@ public class PaymentActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                getTimeForPayment getTimeForPayment = dataSnapshot.getValue(com.example.spark.getTimeForPayment.class);
+                getTimeForPayment getTimeForPayment = dataSnapshot.getValue(getTimeForPayment.class);
                 firebaseTime = getTimeForPayment.getTime();
                 minute = firebaseTime/60;
                 extraTime = minute - time;

@@ -8,12 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -31,24 +37,52 @@ public class HistoryUserActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewHistoryUser);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<PaymentUser>();
+//
+//        FirebaseDatabase.getInstance().getReference("AccountDetails")
+//            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
+//            .addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+//                    String key = dataSnapshot1.getKey();
+//                    PaymentUser p = dataSnapshot.child(key).getValue(PaymentUser.class);
+//                    list.add(p);
+//                }
+//                myAdapterForUser = new MyAdapterForUser(HistoryUserActivity.this, list);
+//                recyclerView.setAdapter(myAdapterForUser);
+//                }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
 
-        FirebaseDatabase.getInstance().getReference("AccountDetails")
-            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
-            .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String key = dataSnapshot1.getKey();
-                    PaymentUser p = dataSnapshot.child(key).getValue(PaymentUser.class);
-                    list.add(p);
-                }
-                myAdapterForUser = new MyAdapterForUser(HistoryUserActivity.this, list);
-                recyclerView.setAdapter(myAdapterForUser);
-                }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+
+        Query query = FirebaseDatabase.getInstance().getReference("AccountDetails")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history");
+
+        FirebaseRecyclerOptions<PaymentUser> options = new FirebaseRecyclerOptions.Builder<PaymentUser>()
+                .setQuery(query, PaymentUser.class).build();
+
+        FirebaseRecyclerAdapter<PaymentUser, PaymentHOlderUser> ownerAdapter =
+                new FirebaseRecyclerAdapter<PaymentUser, PaymentHOlderUser>(options) {
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull PaymentHOlderUser paymentHOlderUser, int i, @NonNull PaymentUser paymentUser) {
+                        paymentHOlderUser.name.setText(paymentUser.getOwnername());
+                        paymentHOlderUser.amount.setText(paymentUser.getAmount());
+                        paymentHOlderUser.UpiID.setText(paymentUser.getGoogleid());
+                    }
+                    @NonNull
+                    @Override
+                    public PaymentHOlderUser onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_history_user, parent, false);
+                        PaymentHOlderUser paymentHOlderUser = new PaymentHOlderUser(view);
+                        return paymentHOlderUser;
+                    }
+                };
+        recyclerView.setAdapter(ownerAdapter);
+        ownerAdapter.startListening();
+
     }
     @Override
     public void onBackPressed() {
