@@ -67,6 +67,8 @@ public class carBooking extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<BookTheVehicle, bookViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull bookViewHolder holder, int position, @NonNull BookTheVehicle model) {
+                final bookViewHolder h2 = holder;
+                holder.mCardView.setTag(position);
                 String spot = String.valueOf(model.getSpot());
 //                String parkingSpot = ((HashMap<String, String>)model).get("spot");
 //                Log.v("axx", parkingSpot);
@@ -84,13 +86,14 @@ public class carBooking extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(carBooking.this, carBookingBytime.class);
-                            View view = v;
-                            View parent = (View) v.getParent();
-                            while (!(parent instanceof RecyclerView)){
-                                view=parent;
-                                parent = (View) parent.getParent();
-                            }
-                            int position = recyclerView.getChildAdapterPosition(view);
+//                            View view = v;
+//                            View parent = (View) v.getParent();
+//                            while (!(parent instanceof RecyclerView)){
+//                                view=parent;
+//                                parent = (View) parent.getParent();
+//                            }
+//                            int position = recyclerView.getChildAdapterPosition(view);
+                            int position = h2.getAdapterPosition()+1;
                             Bundle bundle = new Bundle();
                             bundle.putInt("position",position);
                             intent.putExtras(bundle);

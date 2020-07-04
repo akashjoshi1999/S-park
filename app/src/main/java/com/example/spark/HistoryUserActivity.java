@@ -27,16 +27,18 @@ import java.util.Objects;
 public class HistoryUserActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    ArrayList<PaymentUser> list;
-    MyAdapterForUser myAdapterForUser;
+    //ArrayList<PaymentUser> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_user);
         Objects.requireNonNull(getSupportActionBar()).hide();
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewHistoryUser);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<PaymentUser>();
+      //  list = new ArrayList<PaymentUser>();
 //
 //        FirebaseDatabase.getInstance().getReference("AccountDetails")
 //            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("history")
@@ -67,10 +69,16 @@ public class HistoryUserActivity extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<PaymentUser, PaymentHOlderUser>(options) {
 
                     @Override
-                    protected void onBindViewHolder(@NonNull PaymentHOlderUser paymentHOlderUser, int i, @NonNull PaymentUser paymentUser) {
-                        paymentHOlderUser.name.setText(paymentUser.getOwnername());
-                        paymentHOlderUser.amount.setText(paymentUser.getAmount());
-                        paymentHOlderUser.UpiID.setText(paymentUser.getGoogleid());
+                    protected void onBindViewHolder(@NonNull PaymentHOlderUser holder, int i, @NonNull PaymentUser model) {
+                        holder.name.setText(model.getOwnername());
+                        //holder.name.setText("Aakash joshi");
+                        Log.v("abc",model.getOwnername());
+                        Log.v("abc",Integer.toString(model.getAmount()));
+                        Log.v("abc",model.getGoogleid());
+                        holder.amount.setText(Integer.toString(model.getAmount()));
+                        //holder.amount.setText("10");
+                        holder.UpiID.setText(model.getGoogleid());
+                        //holder.UpiID.setText("akashjoshi61099@gc");
                     }
                     @NonNull
                     @Override

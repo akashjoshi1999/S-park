@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private EditText editTextOwnerName,editTextTotalAmount,editTextExtraMinute,editTextExtraTotal,editTextTotal;
+    public EditText editTextOwnerName,editTextTotalAmount,editTextExtraMinute,editTextExtraTotal,editTextTotal;
     private TextView textViewPayment;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -43,7 +43,7 @@ public class PaymentActivity extends AppCompatActivity {
     private int GOOGLE_PAY_REQUEST_CODE;
     final int UPI_PAYMENT = 0;
     public int Amount,time,minute,extraTime,extraTotal,finalTotal;
-    public String id;
+    public String id,amount;
     public int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +99,12 @@ public class PaymentActivity extends AppCompatActivity {
                 minute = firebaseTime/60;
                 extraTime = minute - time;
                 extraTotal=extraTime*2;
-                editTextExtraMinute.setText(extraTime);
-                editTextExtraTotal.setText(extraTotal);
+                editTextTotalAmount.setText(Integer.toString(Amount));
+                editTextExtraMinute.setText(Integer.toString(extraTime));
+                editTextExtraTotal.setText(Integer.toString(extraTotal));
+                finalTotal = Amount + extraTotal;
+                editTextTotal.setText(Integer.toString(finalTotal));
+                amount = String.valueOf(finalTotal);
             }
 
             @Override
@@ -128,9 +132,8 @@ public class PaymentActivity extends AppCompatActivity {
 
             }
         });
-        finalTotal = Amount + extraTotal;
-        editTextTotalAmount.setText(Integer.toString(finalTotal));
-        final String amount = String.valueOf(finalTotal);
+
+
         textViewPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,12 +235,12 @@ public class PaymentActivity extends AppCompatActivity {
             if (status.equals("success")) {
                 //Code to handle successful transaction here.
                 UserPayment userPayment = new UserPayment(
-                        OwnerName,PaymentGooglePayID,Amount
+                        OwnerName,PaymentGooglePayID,Integer.parseInt(amount)
                 );
                 // userUPIID user gid
                 // UserName user name
                 OwnerPayment ownerPayment = new OwnerPayment(
-                        UserName,userUPIID,Amount
+                        UserName,userUPIID,Integer.parseInt(amount)
                 );
                 FirebaseDatabase.getInstance().getReference("data")
                         .child("QGVsYAYdfiQQ1Fu6vW3CfdBxSlA3").child("history").push()

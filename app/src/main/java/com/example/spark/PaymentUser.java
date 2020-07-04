@@ -9,6 +9,12 @@ public class PaymentUser {
 
     }
 
+    public PaymentUser(String ownername, String googleid, int  amount) {
+        this.ownername = ownername;
+        this.googleid = googleid;
+        this.amount = amount;
+    }
+
     public String getOwnername() {
         return ownername;
     }
@@ -30,12 +36,6 @@ public class PaymentUser {
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public PaymentUser(String ownername, String googleid, int amount) {
-        this.ownername = ownername;
-        this.googleid = googleid;
         this.amount = amount;
     }
 }

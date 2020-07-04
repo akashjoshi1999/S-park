@@ -28,7 +28,7 @@ public class HistoryOwnerActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     ArrayList<PaymentOwner> list;
-    MyAdapterForOwner myAdapterForOwner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class HistoryOwnerActivity extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull PaymentHOlderOwner paymentHOlderOwner, int i, @NonNull PaymentOwner paymentOwner) {
                         paymentHOlderOwner.username.setText(paymentOwner.getUname());
-                        paymentHOlderOwner.paidmoney.setText(paymentOwner.getAmount());
+                        paymentHOlderOwner.paidmoney.setText(Integer.toString(paymentOwner.getAmount()));
                         paymentHOlderOwner.upiid.setText(paymentOwner.getGoogleid());
                     }
 

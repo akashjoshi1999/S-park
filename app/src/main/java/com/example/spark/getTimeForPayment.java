@@ -2,7 +2,9 @@ package com.example.spark;
 
 public class getTimeForPayment {
     public int time;
+    public getTimeForPayment(){
 
+    }
     public getTimeForPayment(int time) {
         this.time = time;
     }
